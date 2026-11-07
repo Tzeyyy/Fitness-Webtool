@@ -118,7 +118,7 @@
         
         <div class="bg-cyan-950/40 border-t border-b border-cyan-500/30 py-1 px-4 text-center">
             <p class="text-[11px] italic font-semibold text-cyan-300 tracking-wider system-font" id="system-announcement">
-                [SYSTEM NOTIFICATION: SELECT MUSCLE QUEST TO COMMENCE DAILY DUNGEON RAID.]
+                [REAL-TIME SYNC: DAILY DUNGEONS REFRESH EVERY 24 HOURS.]
             </p>
         </div>
     </header>
@@ -131,7 +131,7 @@
             <div class="mb-5 flex justify-between items-center">
                 <div>
                     <h1 class="system-font text-xl font-black text-white glow-blue uppercase">PLAYER STATUS WINDOW</h1>
-                    <p class="text-cyan-400/80 text-xs italic">"Prepare to Level Up. 1-Month Quest Synchronization Active."</p>
+                    <p class="text-cyan-400/80 text-xs italic">"Prepare to Level Up. Complete daily dungeon confirmations to increase rank."</p>
                 </div>
                 <button onclick="resetAllData()" class="text-[11px] bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 px-2.5 py-1 rounded transition system-font">
                     <i class="fa-solid fa-skull mr-1"></i> System Reset
@@ -198,11 +198,11 @@
             </div>
         </section>
 
-        <!-- QUEST ARCHITECTURE TAB (MUSCLE AREA SELECTION) -->
+        <!-- QUEST ARCHITECTURE TAB -->
         <section id="sec-quests" class="tab-content hidden">
             <div class="mb-5">
                 <h1 class="system-font text-xl font-black text-white glow-blue uppercase">MUSCLE AREA QUEST SELECTION</h1>
-                <p class="text-cyan-400/80 text-xs italic">"Select your target muscle quest to initiate its 1-month daily dungeon raid program."</p>
+                <p class="text-cyan-400/80 text-xs italic">"Select target muscle quest to activate daily dungeon instructions."</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5" id="quest-cards-container">
@@ -210,12 +210,12 @@
             </div>
         </section>
 
-        <!-- DUNGEONS TAB (PER-EXERCISE ONE-CLICK TAP LOGGING) -->
+        <!-- DUNGEONS TAB (INSTRUCTION & CONFIRMATION SYSTEM) -->
         <section id="sec-dungeons" class="tab-content hidden">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5 gap-3">
                 <div>
                     <h1 class="system-font text-xl font-black text-white glow-blue uppercase" id="dungeon-header-title">DAILY DUNGEON RAID</h1>
-                    <p class="text-cyan-400/80 text-xs italic">"Tap set rep buttons to instantly log exercise volume. No start/end timers needed."</p>
+                    <p class="text-cyan-400/80 text-xs italic">"Follow exercise target instructions and confirm completion for today."</p>
                 </div>
                 <span class="text-xs bg-cyan-950 text-cyan-400 border border-cyan-800 px-3 py-1 rounded font-bold system-font" id="active-quest-badge">
                     Active Quest: Chest & Shoulders
@@ -335,36 +335,36 @@
                 title: 'Chest & Shoulders Quest',
                 desc: 'Target upper chest, deltoids, and push volume over a 1-month program cycle.',
                 exercises: [
-                    { id: 'ex_chest_1', name: 'Decline Push-ups', defaultSets: 3, target: 'Upper Chest & Shoulders', desc: 'Place toes on elevated platform and hands on floor. Lower chest slowly.', videoUrl: 'https://www.youtube.com/embed/5iP2gUxswoM' },
-                    { id: 'ex_chest_2', name: 'Standard Push-ups', defaultSets: 3, target: 'Mid Chest & Triceps', desc: 'Plank position. Keep body straight. Lower until chest is 2 inches off floor.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' },
-                    { id: 'ex_chest_3', name: 'Pike Push-ups', defaultSets: 3, target: 'Front Shoulders', desc: 'Hips elevated in inverted V position. Lower top of head toward floor diagonally.', videoUrl: 'https://www.youtube.com/embed/sposDXWEB0A' }
+                    { id: 'ex_chest_1', name: 'Decline Push-ups', targetReps: 30, sets: 3, totalReps: 90, target: 'Upper Chest & Shoulders', desc: 'Place toes on elevated platform and hands on floor. Lower chest slowly.', videoUrl: 'https://www.youtube.com/embed/5iP2gUxswoM' },
+                    { id: 'ex_chest_2', name: 'Standard Push-ups', targetReps: 30, sets: 3, totalReps: 90, target: 'Mid Chest & Triceps', desc: 'Plank position. Keep body straight. Lower until chest is 2 inches off floor.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' },
+                    { id: 'ex_chest_3', name: 'Pike Push-ups', targetReps: 25, sets: 3, totalReps: 75, target: 'Front Shoulders', desc: 'Hips elevated in inverted V position. Lower top of head toward floor diagonally.', videoUrl: 'https://www.youtube.com/embed/sposDXWEB0A' }
                 ]
             },
             arms: {
                 title: 'Biceps & Triceps Quest',
                 desc: 'Target arm thickness, peak contraction, and dip endurance over 1-month.',
                 exercises: [
-                    { id: 'ex_arm_1', name: 'Chair Dips', defaultSets: 4, target: 'Triceps Concentration', desc: 'Hands on edge of chair. Lower hips down to 90-degree elbow bend.', videoUrl: 'https://www.youtube.com/embed/0326dy_-CzM' },
-                    { id: 'ex_arm_2', name: 'Backpack Bicep Curls', defaultSets: 3, target: 'Biceps Peak', desc: 'Stand tall holding loaded backpack handle. Pin elbows to sides and curl upward.', videoUrl: 'https://www.youtube.com/embed/ykJmrZ5v0Oo' },
-                    { id: 'ex_arm_3', name: 'Diamond Push-ups', defaultSets: 3, target: 'Triceps Lateral Head', desc: 'Hands close together forming a diamond shape directly beneath chest.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' }
+                    { id: 'ex_arm_1', name: 'Chair Dips', targetReps: 30, sets: 4, totalReps: 120, target: 'Triceps Concentration', desc: 'Hands on edge of chair. Lower hips down to 90-degree elbow bend.', videoUrl: 'https://www.youtube.com/embed/0326dy_-CzM' },
+                    { id: 'ex_arm_2', name: 'Backpack Bicep Curls', targetReps: 30, sets: 3, totalReps: 90, target: 'Biceps Peak', desc: 'Stand tall holding loaded backpack handle. Pin elbows to sides and curl upward.', videoUrl: 'https://www.youtube.com/embed/ykJmrZ5v0Oo' },
+                    { id: 'ex_arm_3', name: 'Diamond Push-ups', targetReps: 20, sets: 3, totalReps: 60, target: 'Triceps Lateral Head', desc: 'Hands close together forming a diamond shape directly beneath chest.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' }
                 ]
             },
             back: {
                 title: 'Back & Lats Quest',
                 desc: 'Target lat width, back thickness, and rear delts over a 1-month cycle.',
                 exercises: [
-                    { id: 'ex_back_1', name: 'Backpack Rows', defaultSets: 4, target: 'Lats & Upper Back Width', desc: 'Hinge forward at hips with loaded backpack. Pull handle to lower stomach.', videoUrl: 'https://www.youtube.com/embed/G8l_8chR5BE' },
-                    { id: 'ex_back_2', name: 'Prone Y-T-W Raises', defaultSets: 3, target: 'Upper Back & Posture', desc: 'Lie face down. Raise arms into Y, T, and W positions sequentially.', videoUrl: 'https://www.youtube.com/embed/9g_8gV8m7kQ' },
-                    { id: 'ex_back_3', name: 'Reverse Backpack Flyes', defaultSets: 3, target: 'Rear Delts', desc: 'Bent-over stance. Raise arms outward squeezing shoulder blades together.', videoUrl: 'https://www.youtube.com/embed/G8l_8chR5BE' }
+                    { id: 'ex_back_1', name: 'Backpack Rows', targetReps: 30, sets: 4, totalReps: 120, target: 'Lats & Upper Back Width', desc: 'Hinge forward at hips with loaded backpack. Pull handle to lower stomach.', videoUrl: 'https://www.youtube.com/embed/G8l_8chR5BE' },
+                    { id: 'ex_back_2', name: 'Prone Y-T-W Raises', targetReps: 20, sets: 3, totalReps: 60, target: 'Upper Back & Posture', desc: 'Lie face down. Raise arms into Y, T, and W positions sequentially.', videoUrl: 'https://www.youtube.com/embed/9g_8gV8m7kQ' },
+                    { id: 'ex_back_3', name: 'Reverse Backpack Flyes', targetReps: 25, sets: 3, totalReps: 75, target: 'Rear Delts', desc: 'Bent-over stance. Raise arms outward squeezing shoulder blades together.', videoUrl: 'https://www.youtube.com/embed/G8l_8chR5BE' }
                 ]
             },
             legs_core: {
                 title: 'Legs & Abs Quest',
                 desc: 'Target abdominal endurance, core stability, and lower body stamina.',
                 exercises: [
-                    { id: 'ex_core_1', name: 'Bicycle Crunches', defaultSets: 4, target: 'Obliques & Abs', desc: 'Alternate elbow to knee in smooth rhythmic pedaling cadence.', videoUrl: 'https://www.youtube.com/embed/9FGilxCbdz8' },
-                    { id: 'ex_core_2', name: 'Lying Leg Raises', defaultSets: 3, target: 'Lower Abs', desc: 'Lie flat, hands under lower back. Raise straight legs perpendicular to floor.', videoUrl: 'https://www.youtube.com/embed/JB2oyawG9yY' },
-                    { id: 'ex_core_3', name: 'Bodyweight Squats', defaultSets: 4, target: 'Quads & Glutes', desc: 'Feet shoulder-width apart. Sit back into squat position keeping chest tall.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' }
+                    { id: 'ex_core_1', name: 'Bicycle Crunches', targetReps: 40, sets: 4, totalReps: 160, target: 'Obliques & Abs', desc: 'Alternate elbow to knee in smooth rhythmic pedaling cadence.', videoUrl: 'https://www.youtube.com/embed/9FGilxCbdz8' },
+                    { id: 'ex_core_2', name: 'Lying Leg Raises', targetReps: 30, sets: 3, totalReps: 90, target: 'Lower Abs', desc: 'Lie flat, hands under lower back. Raise straight legs perpendicular to floor.', videoUrl: 'https://www.youtube.com/embed/JB2oyawG9yY' },
+                    { id: 'ex_core_3', name: 'Bodyweight Squats', targetReps: 40, sets: 4, totalReps: 160, target: 'Quads & Glutes', desc: 'Feet shoulder-width apart. Sit back into squat position keeping chest tall.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' }
                 ]
             }
         };
@@ -392,6 +392,16 @@
 
         let dashboardChartInstance = null;
         let volumeChartInstance = null;
+
+        function getTodayKey() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function getConfirmedDungeons() {
+            const data = JSON.parse(localStorage.getItem('build_gain_dungeon_confirmations') || '{}');
+            const today = getTodayKey();
+            return data[today] || {};
+        }
 
         function checkInitialSetup() {
             const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
@@ -522,33 +532,14 @@
 
             const container = document.getElementById('dungeon-exercise-list');
             container.innerHTML = '';
-            const savedLogs = JSON.parse(localStorage.getItem('build_gain_set_logs') || '{}');
+
+            const confirmedToday = getConfirmedDungeons();
 
             questObj.exercises.forEach(ex => {
+                const isConfirmed = confirmedToday[ex.id] || false;
                 const card = document.createElement('div');
-                card.className = `system-window p-4 rounded-xl shadow-md flex flex-col justify-between text-xs`;
+                card.className = `system-window p-4 rounded-xl shadow-md flex flex-col justify-between text-xs border ${isConfirmed ? 'border-emerald-500 bg-emerald-950/20' : 'border-cyan-900'}`;
                 
-                if (!savedLogs[ex.id]) {
-                    savedLogs[ex.id] = Array.from({ length: ex.defaultSets }, () => ({ reps: 0 }));
-                }
-
-                let totalRepsSum = 0;
-                let setsHTML = '';
-                savedLogs[ex.id].forEach((setData, setIdx) => {
-                    const activeReps = setData.reps || 0;
-                    totalRepsSum += activeReps;
-                    setsHTML += `
-                        <div class="flex items-center justify-between my-2 py-1 border-b border-slate-800">
-                            <span class="w-16 text-slate-400 font-bold system-font">Set ${setIdx + 1}</span>
-                            <div class="flex space-x-1.5">
-                                <button onclick="setReps('${ex.id}', ${setIdx}, 10)" class="px-2.5 py-1 rounded font-bold system-font transition ${activeReps === 10 ? 'bg-cyan-500 text-slate-950 shadow' : 'bg-slate-900 text-cyan-400 border border-cyan-800 hover:bg-cyan-950'}">10</button>
-                                <button onclick="setReps('${ex.id}', ${setIdx}, 15)" class="px-2.5 py-1 rounded font-bold system-font transition ${activeReps === 15 ? 'bg-cyan-500 text-slate-950 shadow' : 'bg-slate-900 text-cyan-400 border border-cyan-800 hover:bg-cyan-950'}">15</button>
-                                <button onclick="setReps('${ex.id}', ${setIdx}, 20)" class="px-2.5 py-1 rounded font-bold system-font transition ${activeReps === 20 ? 'bg-cyan-500 text-slate-950 shadow' : 'bg-slate-900 text-cyan-400 border border-cyan-800 hover:bg-cyan-950'}">20</button>
-                            </div>
-                        </div>
-                    `;
-                });
-
                 card.innerHTML = `
                     <div>
                         <div class="flex justify-between items-start mb-2">
@@ -560,32 +551,38 @@
                                 Form Guide
                             </button>
                         </div>
-                        <div class="my-2 bg-slate-900/80 p-2 rounded border border-slate-800 flex justify-between items-center text-xs">
-                            <span class="text-cyan-400 font-semibold system-font">Volume Summary:</span>
-                            <span class="font-bold text-white system-font">${totalRepsSum} Reps across ${ex.defaultSets} Sets</span>
+                        
+                        <div class="my-3 bg-slate-900/90 p-3 rounded border border-slate-800 space-y-1 text-xs">
+                            <div class="flex justify-between items-center">
+                                <span class="text-cyan-400 font-semibold system-font">Target Instruction:</span>
+                                <span class="font-black text-amber-400 system-font">${ex.targetReps} Reps × ${ex.sets} Sets</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Total Exercise Volume:</span>
+                                <span class="font-bold text-white system-font">${ex.totalReps} Reps</span>
+                            </div>
                         </div>
-                        <div class="mt-2">${setsHTML}</div>
+
+                        <button onclick="toggleDungeonConfirmation('${ex.id}', ${ex.totalReps})" class="w-full py-2 rounded font-bold uppercase system-font text-xs transition ${isConfirmed ? 'bg-emerald-600 text-white shadow-lg' : 'bg-slate-900 text-cyan-400 border border-cyan-700 hover:bg-cyan-950'}">
+                            ${isConfirmed ? '<i class="fa-solid fa-check-circle mr-1"></i> Dungeon Exercise Cleared for Today' : 'Confirm Dungeon Exercise Cleared'}
+                        </button>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function setReps(exId, setIdx, repVal) {
-            const savedLogs = JSON.parse(localStorage.getItem('build_gain_set_logs') || '{}');
-            if (!savedLogs[exId]) savedLogs[exId] = [];
+        function toggleDungeonConfirmation(exId, repsVolume) {
+            const data = JSON.parse(localStorage.getItem('build_gain_dungeon_confirmations') || '{}');
+            const today = getTodayKey();
+            if (!data[today]) data[today] = {};
 
-            if (!savedLogs[exId][setIdx]) {
-                savedLogs[exId][setIdx] = { reps: repVal };
-            } else {
-                savedLogs[exId][setIdx].reps = (savedLogs[exId][setIdx].reps === repVal) ? 0 : repVal;
-            }
+            data[today][exId] = !data[today][exId];
+            localStorage.setItem('build_gain_dungeon_confirmations', JSON.stringify(data));
 
-            localStorage.setItem('build_gain_set_logs', JSON.stringify(savedLogs));
-            
-            // Record completed raid history point
+            // Record cumulative volume history
             const history = JSON.parse(localStorage.getItem('build_gain_history') || '[]');
-            history.push({ date: new Date().toLocaleDateString(), exerciseId: exId, reps: repVal });
+            history.push({ date: today, exerciseId: exId, volume: repsVolume });
             localStorage.setItem('build_gain_history', JSON.stringify(history));
 
             loadDungeonExercises();
@@ -633,8 +630,8 @@
         }
 
         function updateRankingBoard() {
-            const history = JSON.parse(localStorage.getItem('build_gain_history') || '[]');
-            const uniqueDays = new Set(history.map(h => h.date)).size;
+            const data = JSON.parse(localStorage.getItem('build_gain_dungeon_confirmations') || '{}');
+            const uniqueDays = Object.keys(data).length;
             const score = 100 + (uniqueDays * 150);
 
             let rankTier = 'E-RANK HUNTER';
@@ -683,8 +680,8 @@
             if (volumeChartInstance) volumeChartInstance.destroy();
 
             const history = JSON.parse(localStorage.getItem('build_gain_history') || '[]');
-            let volumeData = history.map((h, i) => (i + 1) * 60);
-            if (volumeData.length === 0) volumeData = [100, 250, 400, 600];
+            let volumeData = history.map((h, i) => (i + 1) * 90);
+            if (volumeData.length === 0) volumeData = [90, 180, 270, 360];
 
             volumeChartInstance = new Chart(ctx, {
                 type: 'bar',
@@ -775,8 +772,10 @@
         }
 
         function updateDashboardStatus() {
-            const history = JSON.parse(localStorage.getItem('build_gain_history') || '[]');
-            const uniqueDays = new Set(history.map(h => h.date)).size;
+            const data = JSON.parse(localStorage.getItem('build_gain_dungeon_confirmations') || '{}');
+            const uniqueDays = Object.keys(data).length;
+            const confirmedToday = getConfirmedDungeons();
+            const hasConfirmedToday = Object.values(confirmedToday).some(val => val === true);
 
             const statusEl = document.getElementById('dash-workout-status');
             const weeklyProgress = document.getElementById('dash-weekly-progress');
@@ -786,7 +785,7 @@
             weeklyProgress.innerText = `${percent}%`;
             monthProgressText.innerText = `Day ${Math.min(30, uniqueDays + 1)} / 30`;
 
-            if (history.length > 0) {
+            if (hasConfirmedToday) {
                 statusEl.innerText = 'RAID CLEARED';
                 statusEl.className = 'text-xl font-bold text-cyan-400 glow-blue system-font';
             } else {
