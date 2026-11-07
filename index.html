@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build & Gain - Pro Fitness & Nutrition Suite</title>
+    <title>Build & Gain - Adaptive Fitness Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -43,15 +43,23 @@
         <!-- PROFILE & CALCULATOR TAB -->
         <section id="sec-profile" class="tab-content hidden">
             <div class="mb-6">
-                <h1 class="text-2xl font-bold text-white">User Profile & Biometric Calculator</h1>
-                <p class="text-slate-400 text-sm">Enter your body metrics to calculate BMI, BMR, and tailored caloric targets</p>
+                <h1 class="text-2xl font-bold text-white">Target Setup & Biometric Engine</h1>
+                <p class="text-slate-400 text-sm">Select your primary fitness target to automatically adjust workout and diet plans</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Input Form -->
                 <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md">
-                    <h3 class="font-bold text-lg text-blue-400 mb-4">Your Metrics</h3>
+                    <h3 class="font-bold text-lg text-blue-400 mb-4">Fitness Target & Metrics</h3>
                     <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Primary Goal</label>
+                            <select id="calc-target" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-blue-500 font-semibold text-emerald-400">
+                                <option value="bulk">Lean Bulk (Hypertrophy & Muscle Gain)</option>
+                                <option value="cut">Fat Loss & Conditioning (Caloric Deficit)</option>
+                                <option value="recomp">Strength & Recomposition (Maintenance)</option>
+                            </select>
+                        </div>
                         <div>
                             <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Gender</label>
                             <select id="calc-gender" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-blue-500">
@@ -72,10 +80,9 @@
                         <div>
                             <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Height (cm)</label>
                             <input type="number" id="calc-height" value="170" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-blue-500">
-                            <span class="text-[10px] text-slate-500 mt-1 block">Note: 5'7" is approximately 170 cm</span>
                         </div>
                         <button onclick="calculateMetrics()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg transition shadow-lg mt-2">
-                            Calculate BMI & BMR Targets
+                            Update & Apply Adaptive Plans
                         </button>
                     </div>
                 </div>
@@ -83,24 +90,28 @@
                 <!-- Results Display Card -->
                 <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md flex flex-col justify-between">
                     <div>
-                        <h3 class="font-bold text-lg text-emerald-400 mb-4">Calculated Diagnostics</h3>
+                        <h3 class="font-bold text-lg text-emerald-400 mb-4">Calculated Target Diagnostics</h3>
                         <div class="space-y-4">
+                            <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
+                                <span class="text-slate-400 text-sm">Active Goal Profile</span>
+                                <span id="res-goal-name" class="text-sm font-bold text-emerald-400 uppercase">--</span>
+                            </div>
                             <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
                                 <span class="text-slate-400 text-sm">Body Mass Index (BMI)</span>
                                 <span id="res-bmi" class="text-lg font-bold text-white">--</span>
                             </div>
                             <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
-                                <span class="text-slate-400 text-sm">Basal Metabolic Rate (BMR)</span>
-                                <span id="res-bmr" class="text-lg font-bold text-amber-400">-- kcal</span>
+                                <span class="text-slate-400 text-sm">Target Daily Calories</span>
+                                <span id="res-target-cal" class="text-lg font-bold text-emerald-400">-- kcal</span>
                             </div>
                             <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
-                                <span class="text-slate-400 text-sm">Lean Bulk Target (Surplus)</span>
-                                <span id="res-target-cal" class="text-lg font-bold text-emerald-400">-- kcal</span>
+                                <span class="text-slate-400 text-sm">Target Daily Protein</span>
+                                <span id="res-target-protein" class="text-lg font-bold text-blue-400">-- g</span>
                             </div>
                         </div>
                     </div>
                     <p class="text-xs text-slate-400 mt-4 italic bg-slate-900/30 p-3 rounded">
-                        <i class="fa-solid fa-circle-info text-blue-400 mr-1"></i> Calculations factor in a high-metabolism surplus (+400 kcal) for muscle hypertrophy.
+                        <i class="fa-solid fa-arrows-rotate text-blue-400 mr-1"></i> Changing goals automatically adapts workouts, set intensity, and diet structure across all tabs.
                     </p>
                 </div>
             </div>
@@ -111,7 +122,7 @@
             <div class="mb-6 flex justify-between items-center">
                 <div>
                     <h1 class="text-2xl font-bold text-white">Welcome Back, Champion</h1>
-                    <p class="text-slate-400 text-sm">Lean Bulk & Strength Building Dashboard</p>
+                    <p class="text-slate-400 text-sm" id="dash-subheading">Adaptive Fitness & Nutrition Dashboard</p>
                 </div>
                 <button onclick="resetAllData()" class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-lg transition">
                     <i class="fa-solid fa-rotate-right mr-1"></i> Reset Data
@@ -130,7 +141,7 @@
                 <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex items-center justify-between shadow-md">
                     <div>
                         <p class="text-slate-400 text-xs uppercase font-semibold">Protein Target</p>
-                        <h3 class="text-2xl font-bold text-blue-400">110 g</h3>
+                        <h3 class="text-2xl font-bold text-blue-400" id="dash-protein-display">110 g</h3>
                     </div>
                     <i class="fa-solid fa-drumstick-bite text-3xl text-blue-500/20"></i>
                 </div>
@@ -159,15 +170,15 @@
                         <p class="font-bold text-slate-200 text-sm mt-1" id="dash-profile-summary">26 yrs | 65 kg | 170cm</p>
                     </div>
                     <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
-                        <p class="text-slate-400 text-xs">Primary Goal</p>
-                        <p class="font-bold text-slate-200 text-sm mt-1">Hypertrophy & Abs</p>
+                        <p class="text-slate-400 text-xs">Active Target</p>
+                        <p class="font-bold text-emerald-400 text-sm mt-1" id="dash-goal-display">Lean Bulk</p>
                     </div>
                     <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
                         <p class="text-slate-400 text-xs">Focus Areas</p>
                         <p class="font-bold text-slate-200 text-sm mt-1">Chest, Back, Arms</p>
                     </div>
                     <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
-                        <p class="text-slate-400 text-xs">Diet Culture</p>
+                        <p class="text-slate-400 text-xs">Diet Structure</p>
                         <p class="font-bold text-slate-200 text-sm mt-1">Bangladeshi High-P</p>
                     </div>
                 </div>
@@ -178,18 +189,18 @@
         <section id="sec-workout" class="tab-content hidden">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <div>
-                    <h1 class="text-2xl font-bold text-white">Daily Workout & Rep Logger</h1>
-                    <p class="text-slate-400 text-sm">Log your completed reps and click 'Guide' for video clip demonstrations</p>
+                    <h1 class="text-2xl font-bold text-white">Daily Workout Routine</h1>
+                    <p class="text-slate-400 text-sm" id="workout-target-heading">Routine automatically adapted to your fitness target</p>
                 </div>
                 <select id="workout-day-select" onchange="loadWorkoutDay()" class="bg-slate-800 text-blue-400 border border-slate-700 text-sm rounded-lg p-2.5 font-semibold focus:outline-none focus:border-blue-500">
-                    <option value="day1">Day 1 & 4: Chest, Shoulders, Triceps & Core</option>
-                    <option value="day2">Day 2 & 5: Back, Biceps & Core</option>
+                    <option value="day1">Day 1 & 4: Upper Body (Push Focus)</option>
+                    <option value="day2">Day 2 & 5: Upper Body (Pull Focus)</option>
                     <option value="rest">Day 3, 6, 7: Rest & Recovery</option>
                 </select>
             </div>
 
             <div id="workout-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Dynamic exercise cards -->
+                <!-- Dynamic exercise cards based on selected target -->
             </div>
         </section>
 
@@ -217,58 +228,12 @@
         <!-- DIET TAB -->
         <section id="sec-diet" class="tab-content hidden">
             <div class="mb-6">
-                <h1 class="text-2xl font-bold text-white">Bangladeshi Diet Plan</h1>
-                <p class="text-slate-400 text-sm">Targeted high-protein intake customized for high-metabolism lean bulk</p>
+                <h1 class="text-2xl font-bold text-white">Adaptive Bangladeshi Diet Plan</h1>
+                <p class="text-slate-400 text-sm" id="diet-target-heading">Portions and macro targets adapted to your active goal</p>
             </div>
 
-            <div class="space-y-4">
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold text-lg text-emerald-400"><i class="fa-solid fa-sun mr-2"></i> Breakfast (8:00 AM)</h3>
-                        <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded font-semibold">~25g Protein</span>
-                    </div>
-                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
-                        <li>3 Boiled Eggs (2 whole + 1 white)</li>
-                        <li>2 Roti with Peanut Butter OR 1 bowl Milk Oats</li>
-                        <li>1 Banana (Shobri/Sagor)</li>
-                    </ul>
-                </div>
-
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold text-lg text-amber-400"><i class="fa-solid fa-utensils mr-2"></i> Lunch (1:30 PM)</h3>
-                        <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-1 rounded font-semibold">~35g Protein</span>
-                    </div>
-                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
-                        <li>1.5 - 2 cups cooked Rice</li>
-                        <li>150g Chicken Breast OR 150g Fish (Rui/Katla/Tilapia)</li>
-                        <li>1 bowl Thick Lentils (Ghaora Masoor Dal)</li>
-                        <li>Green Salad (Cucumber, Tomato)</li>
-                    </ul>
-                </div>
-
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold text-lg text-blue-400"><i class="fa-solid fa-cookie-bite mr-2"></i> Post-Workout Snack (5:30 PM)</h3>
-                        <span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-1 rounded font-semibold">~20g Protein</span>
-                    </div>
-                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
-                        <li>1 bowl Boiled Chickpeas (Chola) OR Roasted Peanuts (Badam)</li>
-                        <li>1 cup Sweet Plain Yogurt (Misti Doi) OR Tok Doi with half banana</li>
-                    </ul>
-                </div>
-
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold text-lg text-purple-400"><i class="fa-solid fa-moon mr-2"></i> Dinner (9:00 PM)</h3>
-                        <span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-1 rounded font-semibold">~30g Protein</span>
-                    </div>
-                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
-                        <li>2 Roti OR 1.5 cups Rice</li>
-                        <li>100g Chicken, Fish, or Egg Curry</li>
-                        <li>Mixed Vegetables (Shobji)</li>
-                    </ul>
-                </div>
+            <div class="space-y-4" id="diet-plan-container">
+                <!-- Dynamic diet content rendered via JS -->
             </div>
         </section>
 
@@ -276,7 +241,7 @@
         <section id="sec-goals" class="tab-content hidden">
             <div class="mb-6">
                 <h1 class="text-2xl font-bold text-white">Daily & Weekly Goal Checklist</h1>
-                <p class="text-slate-400 text-sm">Stay consistent to ensure progressive overload and habit formation</p>
+                <p class="text-slate-400 text-sm">Stay consistent to ensure progression and habit formation</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -289,7 +254,7 @@
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer">
                             <input type="checkbox" id="goal-daily-1" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-600 text-blue-600 focus:ring-0">
-                            <span class="text-slate-200 text-sm">Hit 100g+ Protein Goal</span>
+                            <span class="text-slate-200 text-sm">Hit Target Daily Protein Goal</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer">
                             <input type="checkbox" id="goal-daily-2" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-600 text-blue-600 focus:ring-0">
@@ -324,14 +289,13 @@
 
     </main>
 
-    <!-- EXERCISE INSTRUCTION MODAL WITH EMBEDDED VIDEO -->
+    <!-- EXERCISE INSTRUCTION MODAL -->
     <div id="exercise-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity">
         <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-lg w-full mx-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">&times;</button>
             <h2 id="modal-title" class="text-xl font-bold text-blue-400 mb-1">Exercise Title</h2>
             <p id="modal-target" class="text-xs text-amber-400 font-semibold mb-3 uppercase">Target Muscle</p>
             
-            <!-- Embedded Video Container -->
             <div id="modal-video-container" class="w-full aspect-video bg-black rounded-lg mb-4 overflow-hidden shadow-inner">
                 <iframe id="modal-video-iframe" class="w-full h-full" src="" title="Exercise Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
@@ -343,24 +307,161 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-        const exercises = {
-            day1: [
-                { id: 'ex1', name: 'Decline Push-ups', defaultSets: 3, targetReps: '8-12', target: 'Upper Chest & Shoulders', desc: 'Place toes on a chair/bed and hands on floor. Lower chest slowly toward floor at a 45-degree elbow angle.', videoUrl: 'https://www.youtube.com/embed/5iP2gUxswoM' },
-                { id: 'ex2', name: 'Standard Push-ups', defaultSets: 3, targetReps: '10-15', target: 'Mid Chest & Triceps', desc: 'Plank position. Keep body straight from head to heels. Lower until chest is 2 inches off floor.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' },
-                { id: 'ex3', name: 'Pike Push-ups', defaultSets: 3, targetReps: '8-10', target: 'Front & Side Shoulders', desc: 'Hips elevated in inverted V position. Lower top of head toward floor diagonally in front of hands.', videoUrl: 'https://www.youtube.com/embed/sposDXWEB0A' },
-                { id: 'ex4', name: 'Chair Dips', defaultSets: 3, targetReps: '10-12', target: 'Triceps & Lower Chest', desc: 'Hands on edge of chair. Lower hips down to 90-degree elbow bend. Drive through palms.', videoUrl: 'https://www.youtube.com/embed/0326dy_-CzM' },
-                { id: 'ex5', name: 'Lying Leg Raises', defaultSets: 3, targetReps: '12-15', target: 'Lower Abs', desc: 'Lie flat, hands under lower back. Raise straight legs perpendicular to floor. Lower under control.', videoUrl: 'https://www.youtube.com/embed/JB2oyawG9yY' }
-            ],
-            day2: [
-                { id: 'ex6', name: 'Backpack Rows', defaultSets: 4, targetReps: '10-12', target: 'Lats & Upper Back Width', desc: 'Hinge forward at hips with loaded backpack. Pull handle to lower stomach while squeezing shoulder blades.', videoUrl: 'https://www.youtube.com/embed/G8l_8chR5BE' },
-                { id: 'ex7', name: 'Backpack Bicep Curls', defaultSets: 3, targetReps: '12-15', target: 'Biceps', desc: 'Stand tall holding backpack handle. Pin elbows to sides and curl upward.', videoUrl: 'https://www.youtube.com/embed/ykJmrZ5v0Oo' },
-                { id: 'ex8', name: 'Backpack Overhead Press', defaultSets: 3, targetReps: '10-12', target: 'Shoulder Caps', desc: 'Press weighted backpack straight up overhead from collarbone height.', videoUrl: 'https://www.youtube.com/embed/B-aVuyhvLHU' },
-                { id: 'ex9', name: 'Prone Y-T-W Raises', defaultSets: 3, targetReps: '10', target: 'Rear Delts & Upper Back', desc: 'Lie face down. Raise arms into Y, T, and W positions sequentially, contracting shoulder blades.', videoUrl: 'https://www.youtube.com/embed/9g_8gV8m7kQ' },
-                { id: 'ex10', name: 'Bicycle Crunches', defaultSets: 3, targetReps: '15/side', target: 'Upper Abs & Obliques', desc: 'Bring right elbow to left knee while extending right leg. Alternate in a smooth pedaling rhythm.', videoUrl: 'https://www.youtube.com/embed/9FGilxCbdz8' }
-            ],
-            rest: [
-                { id: 'ex_rest', name: 'Active Recovery & Mobility', defaultSets: 0, targetReps: '-', target: 'Muscle Growth & Joint Recovery', desc: 'Focus on 7-8 hours sleep, hitting protein target, and light stretching/walking.', videoUrl: '' }
-            ]
+        // Target Workout Database
+        const workoutDatabase = {
+            bulk: {
+                day1: [
+                    { id: 'b_ex1', name: 'Decline Push-ups', defaultSets: 3, targetReps: '8-12', target: 'Upper Chest & Shoulders', desc: 'Place toes on a chair/bed and hands on floor. Lower chest slowly at 45-degree elbow angle.', videoUrl: 'https://www.youtube.com/embed/5iP2gUxswoM' },
+                    { id: 'b_ex2', name: 'Standard Push-ups', defaultSets: 3, targetReps: '10-15', target: 'Mid Chest & Triceps', desc: 'Plank position. Keep body straight. Lower until chest is 2 inches off floor.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' },
+                    { id: 'b_ex3', name: 'Pike Push-ups', defaultSets: 3, targetReps: '8-10', target: 'Front & Side Shoulders', desc: 'Hips elevated in inverted V position. Lower top of head toward floor diagonally.', videoUrl: 'https://www.youtube.com/embed/sposDXWEB0A' },
+                    { id: 'b_ex4', name: 'Chair Dips', defaultSets: 3, targetReps: '10-12', target: 'Triceps & Lower Chest', desc: 'Hands on edge of chair. Lower hips down to 90-degree elbow bend.', videoUrl: 'https://www.youtube.com/embed/0326dy_-CzM' },
+                    { id: 'b_ex5', name: 'Lying Leg Raises', defaultSets: 3, targetReps: '12-15', target: 'Lower Abs', desc: 'Lie flat, hands under lower back. Raise straight legs perpendicular to floor.', videoUrl: 'https://www.youtube.com/embed/JB2oyawG9yY' }
+                ],
+                day2: [
+                    { id: 'b_ex6', name: 'Backpack Rows', defaultSets: 4, targetReps: '10-12', target: 'Lats & Upper Back Width', desc: 'Hinge forward at hips with loaded backpack. Pull handle to lower stomach.', videoUrl: 'https://www.youtube.com/embed/G8l_8chR5BE' },
+                    { id: 'b_ex7', name: 'Backpack Bicep Curls', defaultSets: 3, targetReps: '12-15', target: 'Biceps', desc: 'Stand tall holding backpack handle. Pin elbows to sides and curl upward.', videoUrl: 'https://www.youtube.com/embed/ykJmrZ5v0Oo' },
+                    { id: 'b_ex8', name: 'Backpack Overhead Press', defaultSets: 3, targetReps: '10-12', target: 'Shoulder Caps', desc: 'Press weighted backpack straight up overhead from collarbone height.', videoUrl: 'https://www.youtube.com/embed/B-aVuyhvLHU' },
+                    { id: 'b_ex9', name: 'Prone Y-T-W Raises', defaultSets: 3, targetReps: '10', target: 'Rear Delts & Upper Back', desc: 'Lie face down. Raise arms into Y, T, and W positions sequentially.', videoUrl: 'https://www.youtube.com/embed/9g_8gV8m7kQ' },
+                    { id: 'b_ex10', name: 'Bicycle Crunches', defaultSets: 3, targetReps: '15/side', target: 'Upper Abs & Obliques', desc: 'Bring right elbow to left knee while extending right leg. Alternate in smooth pedaling rhythm.', videoUrl: 'https://www.youtube.com/embed/9FGilxCbdz8' }
+                ]
+            },
+            cut: {
+                day1: [
+                    { id: 'c_ex1', name: 'Tempo Push-ups', defaultSets: 4, targetReps: '12-15', target: 'Chest & Endurance', desc: 'Lower slowly for 3 seconds, explosive press up. High reps for fat loss density.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' },
+                    { id: 'c_ex2', name: 'Pike Push-ups', defaultSets: 3, targetReps: '12-15', target: 'Shoulders', desc: 'Maintain high hips and press rapidly while holding strict posture.', videoUrl: 'https://www.youtube.com/embed/sposDXWEB0A' },
+                    { id: 'c_ex3', name: 'Chair Dips (Short Rest)', defaultSets: 4, targetReps: '15', target: 'Triceps Burn out', desc: 'Keep rest under 45 seconds between sets to maintain elevated heart rate.', videoUrl: 'https://www.youtube.com/embed/0326dy_-CzM' },
+                    { id: 'c_ex4', name: 'Mountain Climbers', defaultSets: 3, targetReps: '30 sec', target: 'Core & Cardio Burn', desc: 'Plank position. Rapidly drive knees toward chest in alternating sprint motion.', videoUrl: 'https://www.youtube.com/embed/cnyTAXRe0wM' },
+                    { id: 'c_ex5', name: 'Hollow Body Hold', defaultSets: 3, targetReps: '45 sec hold', target: 'Abdominal Tension', desc: 'Press lower back into floor, extend arms and legs 2 inches off floor.', videoUrl: 'https://www.youtube.com/embed/LlDNef_Ztts' }
+                ],
+                day2: [
+                    { id: 'c_ex6', name: 'High-Rep Backpack Rows', defaultSets: 4, targetReps: '15-20', target: 'Back & Caloric Burn', desc: 'Lighter load, maximum speed on pull and full contraction at top.', videoUrl: 'https://www.youtube.com/embed/G8l_8chR5BE' },
+                    { id: 'c_ex7', name: 'Hammer Curls (Backpack)', defaultSets: 3, targetReps: '15', target: 'Brachialis & Arms', desc: 'Palms facing inward. Squeeze at top of movement.', videoUrl: 'https://www.youtube.com/embed/ykJmrZ5v0Oo' },
+                    { id: 'c_ex8', name: 'Superman Hold', defaultSets: 3, targetReps: '45 sec', target: 'Lower Back & Posture', desc: 'Lie on stomach, lift chest and thighs simultaneously off floor.', videoUrl: 'https://www.youtube.com/embed/z6PJMT2y8GQ' },
+                    { id: 'c_ex9', name: 'Russian Twists', defaultSets: 3, targetReps: '20/side', target: 'Obliques', desc: 'Seated position, feet elevated. Rotate torso side to side.', videoUrl: 'https://www.youtube.com/embed/wkD8rjkXyUI' }
+                ]
+            },
+            recomp: {
+                day1: [
+                    { id: 'r_ex1', name: 'Weighted Push-ups', defaultSets: 4, targetReps: '6-8', target: 'Chest Heavy Strength', desc: 'Place 5-10kg in backpack. Strict full range of motion.', videoUrl: 'https://www.youtube.com/embed/5iP2gUxswoM' },
+                    { id: 'r_ex2', name: 'Elevated Feet Pike Press', defaultSets: 4, targetReps: '6-8', target: 'Shoulder Strength', desc: 'Feet elevated on bench, maximum load on shoulders.', videoUrl: 'https://www.youtube.com/embed/sposDXWEB0A' },
+                    { id: 'r_ex3', name: 'Weighted Dips', defaultSets: 3, targetReps: '8', target: 'Triceps Heavy', desc: 'Add backpack load across thighs or lap while performing dips.', videoUrl: 'https://www.youtube.com/embed/0326dy_-CzM' },
+                    { id: 'r_ex4', name: 'Dragon Flag Progression', defaultSets: 3, targetReps: '6-8', target: 'Core Power', desc: 'Lie on back, grip sturdy object behind head, raise entire body straight up.', videoUrl: 'https://www.youtube.com/embed/pvIjsG5Svck' }
+                ],
+                day2: [
+                    { id: 'r_ex5', name: 'Heavy Backpack Towel Rows', defaultSets: 4, targetReps: '6-8', target: 'Back Thickness', desc: 'Maximum weight load in pack. Squeeze 2 seconds at peak.', videoUrl: 'https://www.youtube.com/embed/G8l_8chR5BE' },
+                    { id: 'r_ex6', name: 'Strict Bicep Curls', defaultSets: 3, targetReps: '8-10', target: 'Biceps Power', desc: 'Back pinned against wall to prevent momentum swinging.', videoUrl: 'https://www.youtube.com/embed/ykJmrZ5v0Oo' },
+                    { id: 'r_ex7', name: 'Heavy Overhead Press', defaultSets: 4, targetReps: '6-8', target: 'Shoulder Strength', desc: 'Press heavy pack overhead with maximal core bracing.', videoUrl: 'https://www.youtube.com/embed/B-aVuyhvLHU' }
+                ]
+            }
+        };
+
+        // Bangladeshi Diet Database per Target
+        const dietDatabase = {
+            bulk: `
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-emerald-400"><i class="fa-solid fa-sun mr-2"></i> Breakfast (8:00 AM)</h3>
+                        <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded font-semibold">~25g Protein</span>
+                    </div>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>3 Boiled Eggs (2 whole + 1 white)</li>
+                        <li>2 Roti with Peanut Butter OR 1 large bowl Milk Oats</li>
+                        <li>1 Banana (Shobri/Sagor)</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-amber-400"><i class="fa-solid fa-utensils mr-2"></i> Lunch (1:30 PM)</h3>
+                        <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-1 rounded font-semibold">~35g Protein</span>
+                    </div>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>2 cups cooked Rice (Carb Surplus)</li>
+                        <li>150g Chicken Breast OR 150g Fish (Rui/Katla)</li>
+                        <li>1 bowl Thick Lentils (Ghaora Masoor Dal)</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-purple-400"><i class="fa-solid fa-moon mr-2"></i> Dinner (9:00 PM)</h3>
+                        <span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-1 rounded font-semibold">~30g Protein</span>
+                    </div>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>2 Roti OR 1.5 cups Rice</li>
+                        <li>100g Chicken, Fish, or Egg Curry</li>
+                        <li>Mixed Vegetables (Shobji)</li>
+                    </ul>
+                </div>
+            `,
+            cut: `
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-emerald-400"><i class="fa-solid fa-sun mr-2"></i> Breakfast (8:00 AM)</h3>
+                        <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded font-semibold">~25g Protein</span>
+                    </div>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>3 Boiled Egg Whites (Skip yolks for deficit)</li>
+                        <li>1 Roti OR Water-cooked Oats with Chia seeds</li>
+                        <li>1 Green Apple or Cucumber</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-amber-400"><i class="fa-solid fa-utensils mr-2"></i> Lunch (1:30 PM)</h3>
+                        <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-1 rounded font-semibold">~40g Protein</span>
+                    </div>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>1 cup cooked Red Rice (Controlled Carbs)</li>
+                        <li>180g Grilled/Light-oil Chicken Breast or Tilapia Fish</li>
+                        <li>Large Green Salad with Lemon (Cucumber, Tomato)</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-purple-400"><i class="fa-solid fa-moon mr-2"></i> Dinner (9:00 PM)</h3>
+                        <span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-1 rounded font-semibold">~30g Protein</span>
+                    </div>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>1 Roti OR Skip rice/roti completely</li>
+                        <li>150g Fish/Chicken Curry (minimal oil)</li>
+                        <li>1 large bowl Vegetable Soup or Boiled Shobji</li>
+                    </ul>
+                </div>
+            `,
+            recomp: `
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-emerald-400"><i class="fa-solid fa-sun mr-2"></i> Breakfast (8:00 AM)</h3>
+                        <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded font-semibold">~30g Protein</span>
+                    </div>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>3 Whole Boiled Eggs</li>
+                        <li>1.5 Roti with 1 tbsp Tok Doi (Sour Curd)</li>
+                        <li>1 Fruit</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-amber-400"><i class="fa-solid fa-utensils mr-2"></i> Lunch (1:30 PM)</h3>
+                        <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-1 rounded font-semibold">~35g Protein</span>
+                    </div>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>1.5 cups cooked White/Red Rice</li>
+                        <li>150g Fish (Rui/Katla) or Beef (Lean cuts once/week)</li>
+                        <li>1 bowl Thick Dal + Green Salad</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-purple-400"><i class="fa-solid fa-moon mr-2"></i> Dinner (9:00 PM)</h3>
+                        <span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-1 rounded font-semibold">~30g Protein</span>
+                    </div>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>2 Roti</li>
+                        <li>120g Chicken Breast Curry</li>
+                        <li>Mixed Vegetables</li>
+                    </ul>
+                </div>
+            `
         };
 
         function switchTab(tabId) {
@@ -371,8 +472,9 @@
             document.getElementById('tab-' + tabId).classList.add('active-tab');
         }
 
-        // Biometric Calculation Engine
+        // Calculation & Adaptive Controller
         function calculateMetrics() {
+            const target = document.getElementById('calc-target').value;
             const gender = document.getElementById('calc-gender').value;
             const age = parseFloat(document.getElementById('calc-age').value);
             const weight = parseFloat(document.getElementById('calc-weight').value);
@@ -383,11 +485,9 @@
                 return;
             }
 
-            // BMI Calculation: weight (kg) / [height (m)]^2
             const heightM = height / 100;
             const bmi = weight / (heightM * heightM);
 
-            // BMR Calculation (Mifflin-St Jeor Equation)
             let bmr;
             if (gender === 'male') {
                 bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
@@ -395,21 +495,27 @@
                 bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
             }
 
-            // High metabolism lean bulk surplus (~400 kcal)
-            const targetCalories = Math.round(bmr * 1.35 + 300);
+            let targetCalories;
+            let targetProtein;
 
-            // Save to localStorage
-            const profileData = { gender, age, weight, height, bmi: bmi.toFixed(1), bmr: Math.round(bmr), targetCalories };
+            if (target === 'bulk') {
+                targetCalories = Math.round(bmr * 1.35 + 350);
+                targetProtein = Math.round(weight * 1.8);
+            } else if (target === 'cut') {
+                targetCalories = Math.round(bmr * 1.2 - 300);
+                targetProtein = Math.round(weight * 2.0); // Higher protein to preserve muscle during cut
+            } else { // recomp
+                targetCalories = Math.round(bmr * 1.35);
+                targetProtein = Math.round(weight * 1.8);
+            }
+
+            const profileData = { target, gender, age, weight, height, bmi: bmi.toFixed(1), bmr: Math.round(bmr), targetCalories, targetProtein };
             localStorage.setItem('build_gain_profile', JSON.stringify(profileData));
 
-            // Display results
-            document.getElementById('res-bmi').innerText = `${bmi.toFixed(1)} (${getBmiCategory(bmi)})`;
-            document.getElementById('res-bmr').innerText = `${Math.round(bmr)} kcal`;
-            document.getElementById('res-target-cal').innerText = `${targetCalories} kcal`;
-
-            // Update Dashboard UI summary
             updateProfileUI();
-            alert('Profile and targets calculated & saved successfully!');
+            loadWorkoutDay();
+            loadDietPlan();
+            alert('Target updated! Workouts and Diet plans have automatically adjusted.');
         }
 
         function getBmiCategory(bmi) {
@@ -422,67 +528,68 @@
         function loadProfile() {
             const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
             if (saved) {
-                document.getElementById('calc-gender').value = saved.gender;
-                document.getElementById('calc-age').value = saved.age;
-                document.getElementById('calc-weight').value = saved.weight;
-                document.getElementById('calc-height').value = saved.height;
-
-                document.getElementById('res-bmi').innerText = `${saved.bmi} (${getBmiCategory(parseFloat(saved.bmi))})`;
-                document.getElementById('res-bmr').innerText = `${saved.bmr} kcal`;
-                document.getElementById('res-target-cal').innerText = `${saved.targetCalories} kcal`;
-            } else {
-                // Default calculation for initial load (26 yrs, 65kg, 170cm male)
-                document.getElementById('calc-gender').value = 'male';
-                document.getElementById('calc-age').value = 26;
-                document.getElementById('calc-weight').value = 65;
-                document.getElementById('calc-height').value = 170;
-                
-                // Auto compute default
-                let bmr = (10 * 65) + (6.25 * 170) - (5 * 26) + 5;
-                let bmi = 65 / (1.7 * 1.7);
-                let target = Math.round(bmr * 1.35 + 300);
-
-                document.getElementById('res-bmi').innerText = `${bmi.toFixed(1)} (Normal weight)`;
-                document.getElementById('res-bmr').innerText = `${Math.round(bmr)} kcal`;
-                document.getElementById('res-target-cal').innerText = `${target} kcal`;
+                document.getElementById('calc-target').value = saved.target || 'bulk';
+                document.getElementById('calc-gender').value = saved.gender || 'male';
+                document.getElementById('calc-age').value = saved.age || 26;
+                document.getElementById('calc-weight').value = saved.weight || 65;
+                document.getElementById('calc-height').value = saved.height || 170;
             }
             updateProfileUI();
         }
 
         function updateProfileUI() {
             const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
+            const target = saved ? saved.target : 'bulk';
             const weight = saved ? saved.weight : 65;
             const age = saved ? saved.age : 26;
             const height = saved ? saved.height : 170;
             const calories = saved ? saved.targetCalories : 2300;
+            const protein = saved ? saved.targetProtein : 110;
+            const bmi = saved ? saved.bmi : (65 / 2.89).toFixed(1);
+
+            const goalNames = { bulk: 'Lean Bulk', cut: 'Fat Loss & Cut', recomp: 'Strength Recomp' };
+
+            document.getElementById('res-goal-name').innerText = goalNames[target];
+            document.getElementById('res-bmi').innerText = `${bmi} (${getBmiCategory(parseFloat(bmi))})`;
+            document.getElementById('res-target-cal').innerText = `${calories} kcal`;
+            document.getElementById('res-target-protein').innerText = `${protein} g`;
 
             document.getElementById('dash-profile-summary').innerText = `${age} yrs | ${weight} kg | ${height}cm`;
+            document.getElementById('dash-goal-display').innerText = goalNames[target];
             document.getElementById('dash-cal-display').innerText = `${calories} kcal`;
+            document.getElementById('dash-protein-display').innerText = `${protein} g`;
+            
+            document.getElementById('workout-target-heading').innerText = `Current Mode: ${goalNames[target]} (Auto-Adapted Routine)`;
+            document.getElementById('diet-target-heading').innerText = `Current Mode: ${goalNames[target]} (Target: ${calories} kcal | ${protein}g Protein)`;
         }
 
         function loadWorkoutDay() {
+            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
+            const targetKey = saved ? saved.target : 'bulk';
             const dayKey = document.getElementById('workout-day-select').value;
             const container = document.getElementById('workout-list');
             container.innerHTML = '';
 
-            const savedLogs = JSON.parse(localStorage.getItem('build_gain_set_logs') || '{}');
+            const currentRoutine = workoutDatabase[targetKey] || workoutDatabase.bulk;
+            
+            if (dayKey === 'rest') {
+                container.innerHTML = `
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 col-span-2">
+                        <h3 class="font-bold text-white text-base mb-1">Active Recovery & Mobility</h3>
+                        <p class="text-xs text-amber-400 mb-2">Rest & Growth</p>
+                        <p class="text-sm text-slate-300">Focus on 7-8 hours sound sleep, hitting your protein target, and light walking.</p>
+                    </div>
+                `;
+                return;
+            }
 
-            exercises[dayKey].forEach(ex => {
+            const savedLogs = JSON.parse(localStorage.getItem('build_gain_set_logs') || '{}');
+            const dayExercises = currentRoutine[dayKey] || [];
+
+            dayExercises.forEach(ex => {
                 const card = document.createElement('div');
                 card.className = `bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md flex flex-col justify-between`;
                 
-                if (ex.defaultSets === 0) {
-                    card.innerHTML = `
-                        <div>
-                            <h3 class="font-bold text-white text-base mb-1">${ex.name}</h3>
-                            <p class="text-xs text-amber-400">${ex.target}</p>
-                            <p class="text-sm text-slate-300 mt-2">${ex.desc}</p>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                    return;
-                }
-
                 if (!savedLogs[ex.id]) {
                     savedLogs[ex.id] = Array.from({ length: ex.defaultSets }, () => ({ reps: '', weight: '' }));
                 }
@@ -510,7 +617,7 @@
                                 <p class="text-xs text-amber-400">${ex.target}</p>
                             </div>
                             <button onclick="showInstruction('${ex.name}', '${ex.target}', '${ex.desc}', '${ex.videoUrl}')" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 py-1 px-2.5 rounded transition">
-                                <i class="fa-solid fa-play mr-1 text-blue-400"></i> Guide & Video
+                                <i class="fa-solid fa-play mr-1 text-blue-400"></i> Guide
                             </button>
                         </div>
                         <div class="mt-3 border-t border-slate-700/50 pt-2">
@@ -520,6 +627,13 @@
                 `;
                 container.appendChild(card);
             });
+        }
+
+        function loadDietPlan() {
+            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
+            const targetKey = saved ? saved.target : 'bulk';
+            const container = document.getElementById('diet-plan-container');
+            container.innerHTML = dietDatabase[targetKey] || dietDatabase.bulk;
         }
 
         function updateSetLog(exId, setIdx, field, value) {
@@ -553,7 +667,6 @@
         function closeModal() {
             const modal = document.getElementById('exercise-modal');
             modal.classList.add('opacity-0');
-            // Pause video on close by clearing iframe src
             document.getElementById('modal-video-iframe').src = '';
             setTimeout(() => modal.classList.add('hidden'), 250);
         }
@@ -653,6 +766,7 @@
                 localStorage.clear();
                 loadProfile();
                 loadWorkoutDay();
+                loadDietPlan();
                 loadProgress();
                 resetTimer();
             }
@@ -661,6 +775,7 @@
         // Initialize application state
         loadProfile();
         loadWorkoutDay();
+        loadDietPlan();
         loadProgress();
     </script>
 </body>
