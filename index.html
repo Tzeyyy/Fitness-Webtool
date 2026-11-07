@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build & Gain - Pro Tracker with Rep Logger</title>
+    <title>Build & Gain - Pro Fitness & Nutrition Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -26,7 +26,8 @@
                 <i class="fa-solid text-2xl text-blue-500 fa-dumbbell"></i>
                 <span class="text-xl font-bold tracking-wider text-white">BUILD & GAIN</span>
             </div>
-            <nav class="flex space-x-2 sm:space-x-4 text-xs sm:text-sm font-medium mt-2 sm:mt-0 overflow-x-auto">
+            <nav class="flex space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium mt-2 sm:mt-0 overflow-x-auto">
+                <button onclick="switchTab('profile')" id="tab-profile" class="nav-btn py-1 px-2 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-user-gear mr-1"></i> Profile & Calc</button>
                 <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-btn py-1 px-2 active-tab whitespace-nowrap"><i class="fa-solid fa-chart-line mr-1"></i> Dashboard</button>
                 <button onclick="switchTab('workout')" id="tab-workout" class="nav-btn py-1 px-2 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-person-running mr-1"></i> Workout & Log</button>
                 <button onclick="switchTab('timer')" id="tab-timer" class="nav-btn py-1 px-2 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-stopwatch mr-1"></i> Timer</button>
@@ -39,12 +40,78 @@
     <!-- Main Content Container -->
     <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6 pb-20">
 
+        <!-- PROFILE & CALCULATOR TAB -->
+        <section id="sec-profile" class="tab-content hidden">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-white">User Profile & Biometric Calculator</h1>
+                <p class="text-slate-400 text-sm">Enter your body metrics to calculate BMI, BMR, and tailored caloric targets</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Input Form -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md">
+                    <h3 class="font-bold text-lg text-blue-400 mb-4">Your Metrics</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Gender</label>
+                            <select id="calc-gender" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-blue-500">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Age (Years)</label>
+                                <input type="number" id="calc-age" value="26" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Weight (kg)</label>
+                                <input type="number" id="calc-weight" value="65" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-blue-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Height (cm)</label>
+                            <input type="number" id="calc-height" value="170" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-blue-500">
+                            <span class="text-[10px] text-slate-500 mt-1 block">Note: 5'7" is approximately 170 cm</span>
+                        </div>
+                        <button onclick="calculateMetrics()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg transition shadow-lg mt-2">
+                            Calculate BMI & BMR Targets
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Display Card -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-lg text-emerald-400 mb-4">Calculated Diagnostics</h3>
+                        <div class="space-y-4">
+                            <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
+                                <span class="text-slate-400 text-sm">Body Mass Index (BMI)</span>
+                                <span id="res-bmi" class="text-lg font-bold text-white">--</span>
+                            </div>
+                            <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
+                                <span class="text-slate-400 text-sm">Basal Metabolic Rate (BMR)</span>
+                                <span id="res-bmr" class="text-lg font-bold text-amber-400">-- kcal</span>
+                            </div>
+                            <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
+                                <span class="text-slate-400 text-sm">Lean Bulk Target (Surplus)</span>
+                                <span id="res-target-cal" class="text-lg font-bold text-emerald-400">-- kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4 italic bg-slate-900/30 p-3 rounded">
+                        <i class="fa-solid fa-circle-info text-blue-400 mr-1"></i> Calculations factor in a high-metabolism surplus (+400 kcal) for muscle hypertrophy.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <!-- DASHBOARD TAB -->
         <section id="sec-dashboard" class="tab-content">
             <div class="mb-6 flex justify-between items-center">
                 <div>
                     <h1 class="text-2xl font-bold text-white">Welcome Back, Champion</h1>
-                    <p class="text-slate-400 text-sm">Lean Bulk & Strength Building Dashboard (Target: 65kg High-Metabolism)</p>
+                    <p class="text-slate-400 text-sm">Lean Bulk & Strength Building Dashboard</p>
                 </div>
                 <button onclick="resetAllData()" class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-lg transition">
                     <i class="fa-solid fa-rotate-right mr-1"></i> Reset Data
@@ -56,7 +123,7 @@
                 <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex items-center justify-between shadow-md">
                     <div>
                         <p class="text-slate-400 text-xs uppercase font-semibold">Calories Target</p>
-                        <h3 class="text-2xl font-bold text-emerald-400">2,300 kcal</h3>
+                        <h3 class="text-2xl font-bold text-emerald-400" id="dash-cal-display">2,300 kcal</h3>
                     </div>
                     <i class="fa-solid fa-fire text-3xl text-emerald-500/20"></i>
                 </div>
@@ -88,8 +155,8 @@
                 <h2 class="text-lg font-semibold text-white mb-4">Target Overview</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
                     <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
-                        <p class="text-slate-400 text-xs">Current Stats</p>
-                        <p class="font-bold text-slate-200 text-sm mt-1">26 yrs | 65 kg | 5'7"</p>
+                        <p class="text-slate-400 text-xs">Profile Stats</p>
+                        <p class="font-bold text-slate-200 text-sm mt-1" id="dash-profile-summary">26 yrs | 65 kg | 170cm</p>
                     </div>
                     <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
                         <p class="text-slate-400 text-xs">Primary Goal</p>
@@ -112,7 +179,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <div>
                     <h1 class="text-2xl font-bold text-white">Daily Workout & Rep Logger</h1>
-                    <p class="text-slate-400 text-sm">Log your completed reps and added weights for each set live</p>
+                    <p class="text-slate-400 text-sm">Log your completed reps and click 'Guide' for video clip demonstrations</p>
                 </div>
                 <select id="workout-day-select" onchange="loadWorkoutDay()" class="bg-slate-800 text-blue-400 border border-slate-700 text-sm rounded-lg p-2.5 font-semibold focus:outline-none focus:border-blue-500">
                     <option value="day1">Day 1 & 4: Chest, Shoulders, Triceps & Core</option>
@@ -122,7 +189,7 @@
             </div>
 
             <div id="workout-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Exercises and Set-loggers dynamically rendered here -->
+                <!-- Dynamic exercise cards -->
             </div>
         </section>
 
@@ -257,36 +324,42 @@
 
     </main>
 
-    <!-- EXERCISE INSTRUCTION MODAL -->
+    <!-- EXERCISE INSTRUCTION MODAL WITH EMBEDDED VIDEO -->
     <div id="exercise-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity">
-        <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-lg w-full mx-4 shadow-2xl relative">
+        <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-lg w-full mx-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">&times;</button>
-            <h2 id="modal-title" class="text-xl font-bold text-blue-400 mb-2">Exercise Title</h2>
-            <p id="modal-target" class="text-xs text-amber-400 font-semibold mb-4 uppercase">Target Muscle</p>
+            <h2 id="modal-title" class="text-xl font-bold text-blue-400 mb-1">Exercise Title</h2>
+            <p id="modal-target" class="text-xs text-amber-400 font-semibold mb-3 uppercase">Target Muscle</p>
+            
+            <!-- Embedded Video Container -->
+            <div id="modal-video-container" class="w-full aspect-video bg-black rounded-lg mb-4 overflow-hidden shadow-inner">
+                <iframe id="modal-video-iframe" class="w-full h-full" src="" title="Exercise Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
             <div id="modal-desc" class="text-slate-300 text-sm space-y-2 mb-6 leading-relaxed"></div>
             <button onclick="closeModal()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg transition">Got It</button>
         </div>
     </div>
 
-    <!-- JavaScript Logic with Set-by-Set Logging & Persistence -->
+    <!-- JavaScript Application Logic -->
     <script>
         const exercises = {
             day1: [
-                { id: 'ex1', name: 'Decline Push-ups', defaultSets: 3, targetReps: '8-12', target: 'Upper Chest & Shoulders', desc: 'Place toes on a chair/bed and hands on floor. Lower chest slowly toward floor at a 45-degree elbow angle.' },
-                { id: 'ex2', name: 'Standard Push-ups', defaultSets: 3, targetReps: '10-15', target: 'Mid Chest & Triceps', desc: 'Plank position. Keep body straight from head to heels. Lower until chest is 2 inches off floor.' },
-                { id: 'ex3', name: 'Pike Push-ups', defaultSets: 3, targetReps: '8-10', target: 'Front & Side Shoulders', desc: 'Hips elevated in inverted V position. Lower top of head toward floor diagonally in front of hands.' },
-                { id: 'ex4', name: 'Chair Dips', defaultSets: 3, targetReps: '10-12', target: 'Triceps & Lower Chest', desc: 'Hands on edge of chair. Lower hips down to 90-degree elbow bend. Drive through palms.' },
-                { id: 'ex5', name: 'Lying Leg Raises', defaultSets: 3, targetReps: '12-15', target: 'Lower Abs', desc: 'Lie flat, hands under lower back. Raise straight legs perpendicular to floor. Lower under control.' }
+                { id: 'ex1', name: 'Decline Push-ups', defaultSets: 3, targetReps: '8-12', target: 'Upper Chest & Shoulders', desc: 'Place toes on a chair/bed and hands on floor. Lower chest slowly toward floor at a 45-degree elbow angle.', videoUrl: 'https://www.youtube.com/embed/5iP2gUxswoM' },
+                { id: 'ex2', name: 'Standard Push-ups', defaultSets: 3, targetReps: '10-15', target: 'Mid Chest & Triceps', desc: 'Plank position. Keep body straight from head to heels. Lower until chest is 2 inches off floor.', videoUrl: 'https://www.youtube.com/embed/IODxDxX7oi4' },
+                { id: 'ex3', name: 'Pike Push-ups', defaultSets: 3, targetReps: '8-10', target: 'Front & Side Shoulders', desc: 'Hips elevated in inverted V position. Lower top of head toward floor diagonally in front of hands.', videoUrl: 'https://www.youtube.com/embed/sposDXWEB0A' },
+                { id: 'ex4', name: 'Chair Dips', defaultSets: 3, targetReps: '10-12', target: 'Triceps & Lower Chest', desc: 'Hands on edge of chair. Lower hips down to 90-degree elbow bend. Drive through palms.', videoUrl: 'https://www.youtube.com/embed/0326dy_-CzM' },
+                { id: 'ex5', name: 'Lying Leg Raises', defaultSets: 3, targetReps: '12-15', target: 'Lower Abs', desc: 'Lie flat, hands under lower back. Raise straight legs perpendicular to floor. Lower under control.', videoUrl: 'https://www.youtube.com/embed/JB2oyawG9yY' }
             ],
             day2: [
-                { id: 'ex6', name: 'Backpack Rows', defaultSets: 4, targetReps: '10-12', target: 'Lats & Upper Back Width', desc: 'Hinge forward at hips with loaded backpack. Pull handle to lower stomach while squeezing shoulder blades.' },
-                { id: 'ex7', name: 'Backpack Bicep Curls', defaultSets: 3, targetReps: '12-15', target: 'Biceps', desc: 'Stand tall holding backpack handle. Pin elbows to sides and curl upward.' },
-                { id: 'ex8', name: 'Backpack Overhead Press', defaultSets: 3, targetReps: '10-12', target: 'Shoulder Caps', desc: 'Press weighted backpack straight up overhead from collarbone height.' },
-                { id: 'ex9', name: 'Prone Y-T-W Raises', defaultSets: 3, targetReps: '10', target: 'Rear Delts & Upper Back', desc: 'Lie face down. Raise arms into Y, T, and W positions sequentially, contracting shoulder blades.' },
-                { id: 'ex10', name: 'Bicycle Crunches', defaultSets: 3, targetReps: '15/side', target: 'Upper Abs & Obliques', desc: 'Bring right elbow to left knee while extending right leg. Alternate in a smooth pedaling rhythm.' }
+                { id: 'ex6', name: 'Backpack Rows', defaultSets: 4, targetReps: '10-12', target: 'Lats & Upper Back Width', desc: 'Hinge forward at hips with loaded backpack. Pull handle to lower stomach while squeezing shoulder blades.', videoUrl: 'https://www.youtube.com/embed/G8l_8chR5BE' },
+                { id: 'ex7', name: 'Backpack Bicep Curls', defaultSets: 3, targetReps: '12-15', target: 'Biceps', desc: 'Stand tall holding backpack handle. Pin elbows to sides and curl upward.', videoUrl: 'https://www.youtube.com/embed/ykJmrZ5v0Oo' },
+                { id: 'ex8', name: 'Backpack Overhead Press', defaultSets: 3, targetReps: '10-12', target: 'Shoulder Caps', desc: 'Press weighted backpack straight up overhead from collarbone height.', videoUrl: 'https://www.youtube.com/embed/B-aVuyhvLHU' },
+                { id: 'ex9', name: 'Prone Y-T-W Raises', defaultSets: 3, targetReps: '10', target: 'Rear Delts & Upper Back', desc: 'Lie face down. Raise arms into Y, T, and W positions sequentially, contracting shoulder blades.', videoUrl: 'https://www.youtube.com/embed/9g_8gV8m7kQ' },
+                { id: 'ex10', name: 'Bicycle Crunches', defaultSets: 3, targetReps: '15/side', target: 'Upper Abs & Obliques', desc: 'Bring right elbow to left knee while extending right leg. Alternate in a smooth pedaling rhythm.', videoUrl: 'https://www.youtube.com/embed/9FGilxCbdz8' }
             ],
             rest: [
-                { id: 'ex_rest', name: 'Active Recovery & Mobility', defaultSets: 0, targetReps: '-', target: 'Muscle Growth & Joint Recovery', desc: 'Focus on 7-8 hours sleep, hitting protein target, and light stretching/walking.' }
+                { id: 'ex_rest', name: 'Active Recovery & Mobility', defaultSets: 0, targetReps: '-', target: 'Muscle Growth & Joint Recovery', desc: 'Focus on 7-8 hours sleep, hitting protein target, and light stretching/walking.', videoUrl: '' }
             ]
         };
 
@@ -296,6 +369,95 @@
             
             document.getElementById('sec-' + tabId).classList.remove('hidden');
             document.getElementById('tab-' + tabId).classList.add('active-tab');
+        }
+
+        // Biometric Calculation Engine
+        function calculateMetrics() {
+            const gender = document.getElementById('calc-gender').value;
+            const age = parseFloat(document.getElementById('calc-age').value);
+            const weight = parseFloat(document.getElementById('calc-weight').value);
+            const height = parseFloat(document.getElementById('calc-height').value);
+
+            if (!age || !weight || !height) {
+                alert('Please enter valid numeric values for age, weight, and height.');
+                return;
+            }
+
+            // BMI Calculation: weight (kg) / [height (m)]^2
+            const heightM = height / 100;
+            const bmi = weight / (heightM * heightM);
+
+            // BMR Calculation (Mifflin-St Jeor Equation)
+            let bmr;
+            if (gender === 'male') {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            }
+
+            // High metabolism lean bulk surplus (~400 kcal)
+            const targetCalories = Math.round(bmr * 1.35 + 300);
+
+            // Save to localStorage
+            const profileData = { gender, age, weight, height, bmi: bmi.toFixed(1), bmr: Math.round(bmr), targetCalories };
+            localStorage.setItem('build_gain_profile', JSON.stringify(profileData));
+
+            // Display results
+            document.getElementById('res-bmi').innerText = `${bmi.toFixed(1)} (${getBmiCategory(bmi)})`;
+            document.getElementById('res-bmr').innerText = `${Math.round(bmr)} kcal`;
+            document.getElementById('res-target-cal').innerText = `${targetCalories} kcal`;
+
+            // Update Dashboard UI summary
+            updateProfileUI();
+            alert('Profile and targets calculated & saved successfully!');
+        }
+
+        function getBmiCategory(bmi) {
+            if (bmi < 18.5) return 'Underweight';
+            if (bmi < 25) return 'Normal weight';
+            if (bmi < 30) return 'Overweight';
+            return 'Obese';
+        }
+
+        function loadProfile() {
+            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
+            if (saved) {
+                document.getElementById('calc-gender').value = saved.gender;
+                document.getElementById('calc-age').value = saved.age;
+                document.getElementById('calc-weight').value = saved.weight;
+                document.getElementById('calc-height').value = saved.height;
+
+                document.getElementById('res-bmi').innerText = `${saved.bmi} (${getBmiCategory(parseFloat(saved.bmi))})`;
+                document.getElementById('res-bmr').innerText = `${saved.bmr} kcal`;
+                document.getElementById('res-target-cal').innerText = `${saved.targetCalories} kcal`;
+            } else {
+                // Default calculation for initial load (26 yrs, 65kg, 170cm male)
+                document.getElementById('calc-gender').value = 'male';
+                document.getElementById('calc-age').value = 26;
+                document.getElementById('calc-weight').value = 65;
+                document.getElementById('calc-height').value = 170;
+                
+                // Auto compute default
+                let bmr = (10 * 65) + (6.25 * 170) - (5 * 26) + 5;
+                let bmi = 65 / (1.7 * 1.7);
+                let target = Math.round(bmr * 1.35 + 300);
+
+                document.getElementById('res-bmi').innerText = `${bmi.toFixed(1)} (Normal weight)`;
+                document.getElementById('res-bmr').innerText = `${Math.round(bmr)} kcal`;
+                document.getElementById('res-target-cal').innerText = `${target} kcal`;
+            }
+            updateProfileUI();
+        }
+
+        function updateProfileUI() {
+            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
+            const weight = saved ? saved.weight : 65;
+            const age = saved ? saved.age : 26;
+            const height = saved ? saved.height : 170;
+            const calories = saved ? saved.targetCalories : 2300;
+
+            document.getElementById('dash-profile-summary').innerText = `${age} yrs | ${weight} kg | ${height}cm`;
+            document.getElementById('dash-cal-display').innerText = `${calories} kcal`;
         }
 
         function loadWorkoutDay() {
@@ -347,8 +509,8 @@
                                 <h3 class="font-bold text-white text-base">${ex.name}</h3>
                                 <p class="text-xs text-amber-400">${ex.target}</p>
                             </div>
-                            <button onclick="showInstruction('${ex.name}', '${ex.target}', '${ex.desc}')" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 py-1 px-2.5 rounded transition">
-                                Guide
+                            <button onclick="showInstruction('${ex.name}', '${ex.target}', '${ex.desc}', '${ex.videoUrl}')" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 py-1 px-2.5 rounded transition">
+                                <i class="fa-solid fa-play mr-1 text-blue-400"></i> Guide & Video
                             </button>
                         </div>
                         <div class="mt-3 border-t border-slate-700/50 pt-2">
@@ -369,10 +531,19 @@
             updateDashboardStatus();
         }
 
-        function showInstruction(title, target, desc) {
+        function showInstruction(title, target, desc, videoUrl) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-target').innerText = target;
             document.getElementById('modal-desc').innerText = desc;
+            
+            const iframe = document.getElementById('modal-video-iframe');
+            if (videoUrl) {
+                iframe.src = videoUrl;
+                document.getElementById('modal-video-container').classList.remove('hidden');
+            } else {
+                iframe.src = '';
+                document.getElementById('modal-video-container').classList.add('hidden');
+            }
             
             const modal = document.getElementById('exercise-modal');
             modal.classList.remove('hidden');
@@ -382,6 +553,8 @@
         function closeModal() {
             const modal = document.getElementById('exercise-modal');
             modal.classList.add('opacity-0');
+            // Pause video on close by clearing iframe src
+            document.getElementById('modal-video-iframe').src = '';
             setTimeout(() => modal.classList.add('hidden'), 250);
         }
 
@@ -476,14 +649,17 @@
         }
 
         function resetAllData() {
-            if (confirm("Are you sure you want to clear all your logged reps and goal progress?")) {
+            if (confirm("Are you sure you want to clear all your saved data, rep logs, and progress?")) {
                 localStorage.clear();
+                loadProfile();
                 loadWorkoutDay();
                 loadProgress();
                 resetTimer();
             }
         }
 
+        // Initialize application state
+        loadProfile();
         loadWorkoutDay();
         loadProgress();
     </script>
