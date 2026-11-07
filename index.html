@@ -3,39 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build & Gain - Adaptive Fitness & Analytics Suite</title>
+    <title>BUILD & GAIN - SIGMA SUITE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .active-tab {
-            border-bottom: 2px solid #3b82f6;
-            color: #3b82f6;
+            border-bottom: 2px solid #ef4444;
+            color: #ef4444;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
         }
         body {
-            background-color: #0f172a;
+            background-color: #090d16;
             color: #f8fafc;
+        }
+        .sigma-card {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            transition: all 0.3s ease;
+        }
+        .sigma-card:hover {
+            border-color: #ef4444;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+        }
+        .glow-red {
+            text-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
         }
     </style>
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col">
 
     <!-- Header Navigation -->
-    <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-40">
+    <header class="bg-slate-950 border-b border-red-900/40 sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
             <div class="flex items-center space-x-2">
-                <i class="fa-solid text-2xl text-blue-500 fa-dumbbell"></i>
-                <span class="text-xl font-bold tracking-wider text-white">BUILD & GAIN</span>
+                <i class="fa-solid text-2xl text-red-600 fa-skull glow-red"></i>
+                <span class="text-xl font-black tracking-widest text-white uppercase glow-red">SIGMA <span class="text-red-500">GRIND</span></span>
             </div>
-            <nav class="flex space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium mt-2 sm:mt-0 overflow-x-auto">
-                <button onclick="switchTab('profile')" id="tab-profile" class="nav-btn py-1 px-2 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-user-gear mr-1"></i> Profile</button>
-                <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-btn py-1 px-2 active-tab whitespace-nowrap"><i class="fa-solid fa-chart-line mr-1"></i> Dashboard</button>
-                <button onclick="switchTab('workout')" id="tab-workout" class="nav-btn py-1 px-2 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-person-running mr-1"></i> Workout & Log</button>
-                <button onclick="switchTab('analytics')" id="tab-analytics" class="nav-btn py-1 px-2 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-chart-simple mr-1"></i> Workout Trends</button>
-                <button onclick="switchTab('timer')" id="tab-timer" class="nav-btn py-1 px-2 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-stopwatch mr-1"></i> Timer</button>
-                <button onclick="switchTab('diet')" id="tab-diet" class="nav-btn py-1 px-2 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-utensils mr-1"></i> Diet Plan</button>
-                <button onclick="switchTab('goals')" id="tab-goals" class="nav-btn py-1 px-2 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-bullseye mr-1"></i> Goals</button>
+            <nav class="flex space-x-2 sm:space-x-3 text-xs sm:text-sm font-bold mt-2 sm:mt-0 overflow-x-auto uppercase">
+                <button onclick="switchTab('profile')" id="tab-profile" class="nav-btn py-1 px-2 text-slate-400 hover:text-red-400 whitespace-nowrap"><i class="fa-solid fa-user-ninja mr-1"></i> Profile</button>
+                <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-btn py-1 px-2 active-tab whitespace-nowrap"><i class="fa-solid fa-gauge-high mr-1"></i> Dashboard</button>
+                <button onclick="switchTab('program')" id="tab-program" class="nav-btn py-1 px-2 text-slate-400 hover:text-red-400 whitespace-nowrap"><i class="fa-solid fa-calendar-days mr-1"></i> 4-Week Program</button>
+                <button onclick="switchTab('workout')" id="tab-workout" class="nav-btn py-1 px-2 text-slate-400 hover:text-red-400 whitespace-nowrap"><i class="fa-solid fa-dumbbell mr-1"></i> Workout & Log</button>
+                <button onclick="switchTab('analytics')" id="tab-analytics" class="nav-btn py-1 px-2 text-slate-400 hover:text-red-400 whitespace-nowrap"><i class="fa-solid fa-chart-line mr-1"></i> Analytics</button>
+                <button onclick="switchTab('timer')" id="tab-timer" class="nav-btn py-1 px-2 text-slate-400 hover:text-red-400 whitespace-nowrap"><i class="fa-solid fa-stopwatch mr-1"></i> Timer</button>
+                <button onclick="switchTab('diet')" id="tab-diet" class="nav-btn py-1 px-2 text-slate-400 hover:text-red-400 whitespace-nowrap"><i class="fa-solid fa-utensils mr-1"></i> Fuel</button>
+                <button onclick="switchTab('goals')" id="tab-goals" class="nav-btn py-1 px-2 text-slate-400 hover:text-red-400 whitespace-nowrap"><i class="fa-solid fa-bullseye mr-1"></i> Execution</button>
             </nav>
+        </div>
+        
+        <!-- Motivational Quote Ticker Banner -->
+        <div class="bg-red-950/40 border-t border-b border-red-900/30 py-1 px-4 text-center">
+            <p class="text-xs italic font-medium text-red-300/90 tracking-wide" id="ticker-quote">
+                "Work in silence. Let your success make the noise."
+            </p>
         </div>
     </header>
 
@@ -45,76 +66,74 @@
         <!-- PROFILE & CALCULATOR TAB -->
         <section id="sec-profile" class="tab-content hidden">
             <div class="mb-6">
-                <h1 class="text-2xl font-bold text-white">Target Setup & Biometric Engine</h1>
-                <p class="text-slate-400 text-sm">Select your primary fitness target to automatically adjust workout and diet plans</p>
+                <h1 class="text-2xl font-black text-white uppercase tracking-wider">Biometric Command Center</h1>
+                <p class="text-red-400/80 text-sm italic">"Excuses don't burn calories. Data builds empires."</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Input Form -->
-                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md">
-                    <h3 class="font-bold text-lg text-blue-400 mb-4">Fitness Target & Metrics</h3>
+                <div class="sigma-card p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-lg text-red-500 mb-4 uppercase tracking-wider">Target & Metrics</h3>
                     <div class="space-y-4">
                         <div>
                             <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Primary Goal</label>
-                            <select id="calc-target" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-blue-500 font-semibold text-emerald-400">
-                                <option value="bulk">Lean Bulk (Hypertrophy & Muscle Gain)</option>
-                                <option value="cut">Fat Loss & Conditioning (Caloric Deficit)</option>
-                                <option value="recomp">Strength & Recomposition (Maintenance)</option>
+                            <select id="calc-target" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-red-500 font-bold text-red-400">
+                                <option value="bulk">Lean Bulk (Hypertrophy & Dominance)</option>
+                                <option value="cut">Fat Loss & Shred (Extreme Deficit)</option>
+                                <option value="recomp">Strength & Recomposition (Maintain)</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Gender</label>
-                            <select id="calc-gender" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-blue-500">
+                            <select id="calc-gender" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-red-500">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Age (Years)</label>
-                                <input type="number" id="calc-age" value="26" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-blue-500">
+                                <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Age</label>
+                                <input type="number" id="calc-age" value="26" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-red-500">
                             </div>
                             <div>
                                 <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Weight (kg)</label>
-                                <input type="number" id="calc-weight" value="65" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-blue-500">
+                                <input type="number" id="calc-weight" value="65" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-red-500">
                             </div>
                         </div>
                         <div>
                             <label class="block text-xs text-slate-400 mb-1 uppercase font-semibold">Height (cm)</label>
-                            <input type="number" id="calc-height" value="170" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-blue-500">
+                            <input type="number" id="calc-height" value="170" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm text-center focus:outline-none focus:border-red-500">
                         </div>
-                        <button onclick="calculateMetrics()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg transition shadow-lg mt-2">
-                            Update & Apply Adaptive Plans
+                        <button onclick="calculateMetrics()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 rounded-lg transition shadow-lg shadow-red-900/50 mt-2 uppercase tracking-wider">
+                            Re-Calculate Target Parameters
                         </button>
                     </div>
                 </div>
 
-                <!-- Results Display Card -->
-                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md flex flex-col justify-between">
+                <div class="sigma-card p-6 rounded-xl shadow-md flex flex-col justify-between">
                     <div>
-                        <h3 class="font-bold text-lg text-emerald-400 mb-4">Calculated Target Diagnostics</h3>
+                        <h3 class="font-bold text-lg text-red-500 mb-4 uppercase tracking-wider">Target Diagnostics</h3>
                         <div class="space-y-4">
-                            <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
-                                <span class="text-slate-400 text-sm">Active Goal Profile</span>
-                                <span id="res-goal-name" class="text-sm font-bold text-emerald-400 uppercase">--</span>
+                            <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-800 flex justify-between items-center">
+                                <span class="text-slate-400 text-sm">Active Strategy</span>
+                                <span id="res-goal-name" class="text-sm font-bold text-red-400 uppercase">--</span>
                             </div>
-                            <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
+                            <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-800 flex justify-between items-center">
                                 <span class="text-slate-400 text-sm">Body Mass Index (BMI)</span>
                                 <span id="res-bmi" class="text-lg font-bold text-white">--</span>
                             </div>
-                            <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
-                                <span class="text-slate-400 text-sm">Target Daily Calories</span>
-                                <span id="res-target-cal" class="text-lg font-bold text-emerald-400">-- kcal</span>
+                            <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-800 flex justify-between items-center">
+                                <span class="text-slate-400 text-sm">Target Daily Fuel</span>
+                                <span id="res-target-cal" class="text-lg font-bold text-red-500 glow-red">-- kcal</span>
                             </div>
-                            <div class="bg-slate-900/60 p-3.5 rounded-lg border border-slate-700/50 flex justify-between items-center">
+                            <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-800 flex justify-between items-center">
                                 <span class="text-slate-400 text-sm">Target Daily Protein</span>
-                                <span id="res-target-protein" class="text-lg font-bold text-blue-400">-- g</span>
+                                <span id="res-target-protein" class="text-lg font-bold text-white">-- g</span>
                             </div>
                         </div>
                     </div>
-                    <p class="text-xs text-slate-400 mt-4 italic bg-slate-900/30 p-3 rounded">
-                        <i class="fa-solid fa-arrows-rotate text-blue-400 mr-1"></i> Changing goals automatically adapts workouts, set intensity, and diet structure across all tabs.
-                    </p>
+                    <div class="mt-4 p-3 rounded bg-red-950/20 border border-red-900/30 text-center">
+                        <p class="text-xs text-red-400 italic">"The pain of discipline is nothing compared to the pain of regret."</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -123,51 +142,51 @@
         <section id="sec-dashboard" class="tab-content">
             <div class="mb-6 flex justify-between items-center">
                 <div>
-                    <h1 class="text-2xl font-bold text-white">Welcome Back, Champion</h1>
-                    <p class="text-slate-400 text-sm" id="dash-subheading">Adaptive Fitness & Nutrition Dashboard</p>
+                    <h1 class="text-2xl font-black text-white uppercase tracking-wider">War Room Dashboard</h1>
+                    <p class="text-red-400/80 text-sm italic" id="dash-quote">"While they sleep, we build."</p>
                 </div>
-                <button onclick="resetAllData()" class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-lg transition">
+                <button onclick="resetAllData()" class="text-xs bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 px-3 py-1.5 rounded-lg transition">
                     <i class="fa-solid fa-rotate-right mr-1"></i> Reset Data
                 </button>
             </div>
 
             <!-- Stats Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex items-center justify-between shadow-md">
+                <div class="sigma-card p-4 rounded-xl flex items-center justify-between">
                     <div>
-                        <p class="text-slate-400 text-xs uppercase font-semibold">Calories Target</p>
-                        <h3 class="text-2xl font-bold text-emerald-400" id="dash-cal-display">2,300 kcal</h3>
+                        <p class="text-slate-400 text-xs uppercase font-semibold">Calories Required</p>
+                        <h3 class="text-2xl font-bold text-red-500 glow-red" id="dash-cal-display">2,300 kcal</h3>
                     </div>
-                    <i class="fa-solid fa-fire text-3xl text-emerald-500/20"></i>
+                    <i class="fa-solid fa-fire text-3xl text-red-500/20"></i>
                 </div>
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex items-center justify-between shadow-md">
+                <div class="sigma-card p-4 rounded-xl flex items-center justify-between">
                     <div>
                         <p class="text-slate-400 text-xs uppercase font-semibold">Protein Target</p>
-                        <h3 class="text-2xl font-bold text-blue-400" id="dash-protein-display">110 g</h3>
+                        <h3 class="text-2xl font-bold text-white" id="dash-protein-display">110 g</h3>
                     </div>
-                    <i class="fa-solid fa-drumstick-bite text-3xl text-blue-500/20"></i>
+                    <i class="fa-solid fa-drumstick-bite text-3xl text-red-500/20"></i>
                 </div>
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex items-center justify-between shadow-md">
+                <div class="sigma-card p-4 rounded-xl flex items-center justify-between">
                     <div>
                         <p class="text-slate-400 text-xs uppercase font-semibold">Workout Status</p>
-                        <h3 class="text-2xl font-bold text-amber-400" id="dash-workout-status">Pending</h3>
+                        <h3 class="text-2xl font-bold text-amber-500" id="dash-workout-status">Pending</h3>
                     </div>
                     <i class="fa-solid fa-list-check text-3xl text-amber-500/20"></i>
                 </div>
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex items-center justify-between shadow-md">
+                <div class="sigma-card p-4 rounded-xl flex items-center justify-between">
                     <div>
-                        <p class="text-slate-400 text-xs uppercase font-semibold">Overall Progress</p>
-                        <h3 class="text-2xl font-bold text-purple-400" id="dash-weekly-progress">0%</h3>
+                        <p class="text-slate-400 text-xs uppercase font-semibold">Execution Rate</p>
+                        <h3 class="text-2xl font-bold text-red-400" id="dash-weekly-progress">0%</h3>
                     </div>
-                    <i class="fa-solid fa-trophy text-3xl text-purple-500/20"></i>
+                    <i class="fa-solid fa-trophy text-3xl text-red-500/20"></i>
                 </div>
             </div>
 
             <!-- DASHBOARD GRAPH CARD -->
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 mb-6 shadow-md">
+            <div class="sigma-card p-6 rounded-xl mb-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-lg font-semibold text-white"><i class="fa-solid fa-chart-area text-blue-400 mr-2"></i> Weekly Routine Adherence Trend</h2>
-                    <span class="text-xs bg-blue-500/10 text-blue-400 px-2.5 py-1 rounded font-semibold">Last 7 Days</span>
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider"><i class="fa-solid fa-chart-area text-red-500 mr-2"></i> Weekly Execution Consistency</h2>
+                    <span class="text-xs bg-red-950 text-red-400 border border-red-800/40 px-2.5 py-1 rounded font-semibold">Last 7 Days</span>
                 </div>
                 <div class="w-full h-64">
                     <canvas id="dashboardAdherenceChart"></canvas>
@@ -175,26 +194,110 @@
             </div>
 
             <!-- Profile Summary Card -->
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 mb-6 shadow-md">
-                <h2 class="text-lg font-semibold text-white mb-4">Target Overview</h2>
+            <div class="sigma-card p-6 rounded-xl mb-6">
+                <h2 class="text-lg font-bold text-white mb-4 uppercase tracking-wider">Operative Overview</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-                    <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
+                    <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
                         <p class="text-slate-400 text-xs">Profile Stats</p>
                         <p class="font-bold text-slate-200 text-sm mt-1" id="dash-profile-summary">26 yrs | 65 kg | 170cm</p>
                     </div>
-                    <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
-                        <p class="text-slate-400 text-xs">Active Target</p>
-                        <p class="font-bold text-emerald-400 text-sm mt-1" id="dash-goal-display">Lean Bulk</p>
+                    <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                        <p class="text-slate-400 text-xs">Active Mode</p>
+                        <p class="font-bold text-red-500 text-sm mt-1" id="dash-goal-display">Lean Bulk</p>
                     </div>
-                    <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
-                        <p class="text-slate-400 text-xs">Focus Areas</p>
+                    <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                        <p class="text-slate-400 text-xs">Target Focus</p>
                         <p class="font-bold text-slate-200 text-sm mt-1">Chest, Back, Arms</p>
                     </div>
-                    <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
-                        <p class="text-slate-400 text-xs">Diet Structure</p>
+                    <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                        <p class="text-slate-400 text-xs">Fuel Strategy</p>
                         <p class="font-bold text-slate-200 text-sm mt-1">Bangladeshi High-P</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- 4-WEEK PROGRAM TAB -->
+        <section id="sec-program" class="tab-content hidden">
+            <div class="mb-6 flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-black text-white uppercase tracking-wider">4-Week Overload Architecture</h1>
+                    <p class="text-red-400/80 text-sm italic">"Progressive tension turns bodyweight into armor."</p>
+                </div>
+                <select id="program-week-select" onchange="loadProgramWeek()" class="bg-slate-900 text-red-500 border border-red-900/50 text-sm rounded-lg p-2.5 font-bold focus:outline-none">
+                    <option value="1">Week 1: Baseline Focus</option>
+                    <option value="2">Week 2: Volume Push</option>
+                    <option value="3">Week 3: Time Under Tension</option>
+                    <option value="4">Week 4: Heavy Load / Leverage</option>
+                </select>
+            </div>
+
+            <!-- Overload Strategy Card -->
+            <div class="sigma-card p-6 rounded-xl mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider" id="prog-week-title">Week 1 Focus</h2>
+                    <span class="text-xs bg-red-950 text-red-400 border border-red-800/40 px-2.5 py-1 rounded font-bold uppercase" id="prog-week-badge">Baseline</span>
+                </div>
+                <p class="text-slate-300 text-sm mb-4" id="prog-week-desc">Establish strict form and rep targets.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-center text-xs">
+                    <div class="bg-slate-900/80 p-3 rounded border border-slate-800">
+                        <span class="text-slate-400 block mb-1">Push Target</span>
+                        <span class="font-bold text-red-400" id="prog-push-target">3 sets x 10 reps</span>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded border border-slate-800">
+                        <span class="text-slate-400 block mb-1">Row Target</span>
+                        <span class="font-bold text-red-400" id="prog-row-target">4 sets x 10 reps</span>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded border border-slate-800">
+                        <span class="text-slate-400 block mb-1">Tempo Cadence</span>
+                        <span class="font-bold text-white" id="prog-tempo-target">1s down / 1s up</span>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded border border-slate-800">
+                        <span class="text-slate-400 block mb-1">Added Weight</span>
+                        <span class="font-bold text-amber-500" id="prog-weight-target">Bodyweight</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overload Overview Table -->
+            <div class="sigma-card p-6 rounded-xl overflow-x-auto">
+                <h2 class="text-lg font-bold text-white mb-4 uppercase tracking-wider"><i class="fa-solid fa-layer-group text-red-500 mr-2"></i> 4-Week Progressive Overload Map</h2>
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900 text-red-400 border-b border-red-900/40">
+                        <tr>
+                            <th class="py-3 px-4">Week</th>
+                            <th class="py-3 px-4">Focus</th>
+                            <th class="py-3 px-4">Progression Mechanism</th>
+                            <th class="py-3 px-4">Standard Push-up Target</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr class="hover:bg-slate-900/50">
+                            <td class="py-3 px-4 font-bold text-white">Week 1</td>
+                            <td class="py-3 px-4 text-red-400 font-semibold">Baseline</td>
+                            <td class="py-3 px-4">Establish clean form and standard tempo</td>
+                            <td class="py-3 px-4">3 sets × 10 reps (30 total)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/50">
+                            <td class="py-3 px-4 font-bold text-white">Week 2</td>
+                            <td class="py-3 px-4 text-red-400 font-semibold">Volume Push</td>
+                            <td class="py-3 px-4">Increase repetition count (+2 reps/set)</td>
+                            <td class="py-3 px-4">3 sets × 12 reps (36 total)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/50">
+                            <td class="py-3 px-4 font-bold text-white">Week 3</td>
+                            <td class="py-3 px-4 text-red-400 font-semibold">TUT (Time Under Tension)</td>
+                            <td class="py-3 px-4">Introduce 3-second lowering phase per rep</td>
+                            <td class="py-3 px-4">3 sets × 10 reps (3s down)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/50">
+                            <td class="py-3 px-4 font-bold text-white">Week 4</td>
+                            <td class="py-3 px-4 text-red-400 font-semibold">Difficulty Shift</td>
+                            <td class="py-3 px-4">Add 3–5 kg in backpack OR elevate feet</td>
+                            <td class="py-3 px-4">3 sets × 8–10 reps (+3-5kg)</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
@@ -202,51 +305,47 @@
         <section id="sec-workout" class="tab-content hidden">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <div>
-                    <h1 class="text-2xl font-bold text-white">Daily Workout Routine</h1>
-                    <p class="text-slate-400 text-sm" id="workout-target-heading">Routine automatically adapted to your fitness target</p>
+                    <h1 class="text-2xl font-black text-white uppercase tracking-wider">Iron Protocol & Rep Logger</h1>
+                    <p class="text-red-400/80 text-sm italic" id="workout-target-heading">"No excuses. Push past failure."</p>
                 </div>
-                <select id="workout-day-select" onchange="loadWorkoutDay()" class="bg-slate-800 text-blue-400 border border-slate-700 text-sm rounded-lg p-2.5 font-semibold focus:outline-none focus:border-blue-500">
-                    <option value="day1">Day 1 & 4: Upper Body (Push Focus)</option>
-                    <option value="day2">Day 2 & 5: Upper Body (Pull Focus)</option>
-                    <option value="rest">Day 3, 6, 7: Rest & Recovery</option>
+                <select id="workout-day-select" onchange="loadWorkoutDay()" class="bg-slate-900 text-red-500 border border-red-900/50 text-sm rounded-lg p-2.5 font-bold focus:outline-none">
+                    <option value="day1">Day 1 & 4: Upper Body (Push Dominance)</option>
+                    <option value="day2">Day 2 & 5: Upper Body (Pull Dominance)</option>
+                    <option value="rest">Day 3, 6, 7: Active Recovery & Sleep</option>
                 </select>
             </div>
 
             <div id="workout-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Dynamic exercise cards based on selected target -->
+                <!-- Dynamic exercise cards -->
             </div>
         </section>
 
         <!-- WORKOUT TRENDS & ANALYTICS TAB -->
         <section id="sec-analytics" class="tab-content hidden">
-            <div class="mb-6 flex justify-between items-center">
-                <div>
-                    <h1 class="text-2xl font-bold text-white">Workout Performance Analytics</h1>
-                    <p class="text-slate-400 text-sm">Track progressive overload trends and calculated 1RM strength progression</p>
-                </div>
+            <div class="mb-6">
+                <h1 class="text-2xl font-black text-white uppercase tracking-wider">Dominance Analytics</h1>
+                <p class="text-red-400/80 text-sm italic">"Numbers don't lie. Progressive overload or stay average."</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <!-- Total Volume Chart -->
-                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md">
-                    <h2 class="text-lg font-semibold text-white mb-2"><i class="fa-solid fa-weight-hanging text-emerald-400 mr-2"></i> Total Workout Volume (kg x Reps)</h2>
-                    <p class="text-xs text-slate-400 mb-4">Cumulative tonnage lifted across recent workout sessions</p>
+                <div class="sigma-card p-6 rounded-xl">
+                    <h2 class="text-lg font-bold text-white mb-2 uppercase tracking-wider"><i class="fa-solid fa-weight-hanging text-red-500 mr-2"></i> Cumulative Volume Lifted</h2>
+                    <p class="text-xs text-slate-400 mb-4">Total tonnage moved across recent sessions</p>
                     <div class="w-full h-60">
                         <canvas id="volumeTrendChart"></canvas>
                     </div>
                 </div>
 
-                <!-- Estimated 1RM Strength Chart -->
-                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md">
+                <div class="sigma-card p-6 rounded-xl">
                     <div class="flex justify-between items-center mb-2">
-                        <h2 class="text-lg font-semibold text-white"><i class="fa-solid fa-bolt text-amber-400 mr-2"></i> Est. 1-Rep Max Strength</h2>
-                        <select id="analytics-exercise-select" onchange="renderStrengthTrendChart()" class="bg-slate-900 border border-slate-700 text-xs text-blue-400 rounded px-2 py-1 focus:outline-none">
+                        <h2 class="text-lg font-bold text-white uppercase tracking-wider"><i class="fa-solid fa-bolt text-red-500 mr-2"></i> Peak Strength (1RM)</h2>
+                        <select id="analytics-exercise-select" onchange="renderStrengthTrendChart()" class="bg-slate-900 border border-red-900/40 text-xs text-red-400 rounded px-2 py-1 focus:outline-none font-bold">
                             <option value="ex1">Decline Push-ups</option>
                             <option value="ex2">Standard Push-ups</option>
                             <option value="ex6">Backpack Rows</option>
                         </select>
                     </div>
-                    <p class="text-xs text-slate-400 mb-4">Calculated max strength (Epley Formula: Weight x (1 + Reps/30))</p>
+                    <p class="text-xs text-slate-400 mb-4">Calculated theoretical max load (Epley Formula)</p>
                     <div class="w-full h-60">
                         <canvas id="strengthTrendChart"></canvas>
                     </div>
@@ -256,21 +355,23 @@
 
         <!-- TIMER TAB -->
         <section id="sec-timer" class="tab-content hidden">
-            <div class="max-w-md mx-auto bg-slate-800 p-8 rounded-2xl border border-slate-700 text-center shadow-xl">
-                <h1 class="text-xl font-bold text-slate-300 mb-6">Rest & Set Timer</h1>
-                <div class="text-6xl font-mono font-bold text-blue-500 mb-8 tracking-wider" id="timer-display">01:30</div>
+            <div class="max-w-md mx-auto sigma-card p-8 rounded-2xl text-center shadow-2xl border border-red-900/40">
+                <h1 class="text-xl font-black text-white mb-2 uppercase tracking-wider">Rest Interval Timer</h1>
+                <p class="text-xs text-red-400 italic mb-6">"Rest is for growth. Get back on the bar."</p>
+                
+                <div class="text-6xl font-mono font-bold text-red-500 mb-8 tracking-wider glow-red" id="timer-display">01:30</div>
                 
                 <div class="flex justify-center space-x-3 mb-6">
-                    <button onclick="setTimerPreset(45)" class="bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-xs transition">45s</button>
-                    <button onclick="setTimerPreset(60)" class="bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-xs transition">60s</button>
-                    <button onclick="setTimerPreset(90)" class="bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-xs transition">90s</button>
-                    <button onclick="setTimerPreset(120)" class="bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-xs transition">120s</button>
+                    <button onclick="setTimerPreset(45)" class="bg-slate-900 border border-slate-700 hover:border-red-500 px-3 py-1 rounded text-xs font-bold transition">45s</button>
+                    <button onclick="setTimerPreset(60)" class="bg-slate-900 border border-slate-700 hover:border-red-500 px-3 py-1 rounded text-xs font-bold transition">60s</button>
+                    <button onclick="setTimerPreset(90)" class="bg-slate-900 border border-slate-700 hover:border-red-500 px-3 py-1 rounded text-xs font-bold transition">90s</button>
+                    <button onclick="setTimerPreset(120)" class="bg-slate-900 border border-slate-700 hover:border-red-500 px-3 py-1 rounded text-xs font-bold transition">120s</button>
                 </div>
 
                 <div class="flex justify-center space-x-4">
-                    <button onclick="startTimer()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition">Start</button>
-                    <button onclick="pauseTimer()" class="bg-amber-600 hover:bg-amber-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition">Pause</button>
-                    <button onclick="resetTimer()" class="bg-slate-600 hover:bg-slate-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition">Reset</button>
+                    <button onclick="startTimer()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg shadow-red-900/50 uppercase transition">Start</button>
+                    <button onclick="pauseTimer()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg uppercase transition">Pause</button>
+                    <button onclick="resetTimer()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg uppercase transition">Reset</button>
                 </div>
             </div>
         </section>
@@ -278,8 +379,8 @@
         <!-- DIET TAB -->
         <section id="sec-diet" class="tab-content hidden">
             <div class="mb-6">
-                <h1 class="text-2xl font-bold text-white">Adaptive Bangladeshi Diet Plan</h1>
-                <p class="text-slate-400 text-sm" id="diet-target-heading">Portions and macro targets adapted to your active goal</p>
+                <h1 class="text-2xl font-black text-white uppercase tracking-wider">Anabolic Bangladeshi Fuel</h1>
+                <p class="text-red-400/80 text-sm italic" id="diet-target-heading">"Eat for purpose, not for emotion."</p>
             </div>
 
             <div class="space-y-4" id="diet-plan-container">
@@ -290,47 +391,47 @@
         <!-- GOALS TAB -->
         <section id="sec-goals" class="tab-content hidden">
             <div class="mb-6">
-                <h1 class="text-2xl font-bold text-white">Daily & Weekly Goal Checklist</h1>
-                <p class="text-slate-400 text-sm">Stay consistent to ensure progression and habit formation</p>
+                <h1 class="text-2xl font-black text-white uppercase tracking-wider">Unforgiving Execution Checklist</h1>
+                <p class="text-red-400/80 text-sm italic">"Consistency separates the weak from the relentless."</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow-md">
-                    <h3 class="font-bold text-lg text-blue-400 mb-4 border-b border-slate-700 pb-2">Daily Habits</h3>
+                <div class="sigma-card p-5 rounded-xl">
+                    <h3 class="font-bold text-lg text-red-500 mb-4 border-b border-slate-800 pb-2 uppercase tracking-wider">Daily Non-Negotiables</h3>
                     <div class="space-y-3" id="daily-goals-container">
                         <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" id="goal-daily-0" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-600 text-blue-600 focus:ring-0">
-                            <span class="text-slate-200 text-sm">Complete Scheduled Workout</span>
+                            <input type="checkbox" id="goal-daily-0" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-700 text-red-600 focus:ring-0">
+                            <span class="text-slate-200 text-sm font-semibold">Complete Scheduled Iron Session</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" id="goal-daily-1" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-600 text-blue-600 focus:ring-0">
-                            <span class="text-slate-200 text-sm">Hit Target Daily Protein Goal</span>
+                            <input type="checkbox" id="goal-daily-1" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-700 text-red-600 focus:ring-0">
+                            <span class="text-slate-200 text-sm font-semibold">Hit Full Anabolic Protein Target</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" id="goal-daily-2" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-600 text-blue-600 focus:ring-0">
-                            <span class="text-slate-200 text-sm">Drink 3+ Liters Water</span>
+                            <input type="checkbox" id="goal-daily-2" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-700 text-red-600 focus:ring-0">
+                            <span class="text-slate-200 text-sm font-semibold">Drink 3.5+ Liters Hydration</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" id="goal-daily-3" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-600 text-blue-600 focus:ring-0">
-                            <span class="text-slate-200 text-sm">Get 7-8 Hours Sleep</span>
+                            <input type="checkbox" id="goal-daily-3" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-700 text-red-600 focus:ring-0">
+                            <span class="text-slate-200 text-sm font-semibold">Get 7.5+ Hours Sleep Recovery</span>
                         </label>
                     </div>
                 </div>
 
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow-md">
-                    <h3 class="font-bold text-lg text-purple-400 mb-4 border-b border-slate-700 pb-2">Weekly Targets</h3>
+                <div class="sigma-card p-5 rounded-xl">
+                    <h3 class="font-bold text-lg text-white mb-4 border-b border-slate-800 pb-2 uppercase tracking-wider">Weekly Objectives</h3>
                     <div class="space-y-3" id="weekly-goals-container">
                         <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" id="goal-weekly-0" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-600 text-purple-600 focus:ring-0">
-                            <span class="text-slate-200 text-sm">4 Upper-Body Strength Sessions</span>
+                            <input type="checkbox" id="goal-weekly-0" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-700 text-red-600 focus:ring-0">
+                            <span class="text-slate-200 text-sm font-semibold">4 Heavy Upper-Body Strength Sessions</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" id="goal-weekly-1" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-600 text-purple-600 focus:ring-0">
-                            <span class="text-slate-200 text-sm">Increase +1 or +2 reps on Push-ups/Rows</span>
+                            <input type="checkbox" id="goal-weekly-1" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-700 text-red-600 focus:ring-0">
+                            <span class="text-slate-200 text-sm font-semibold">Achieve Overload (+1 rep or +1kg on key moves)</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer">
-                            <input type="checkbox" id="goal-weekly-2" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-600 text-purple-600 focus:ring-0">
-                            <span class="text-slate-200 text-sm">Maintain Clean Diet (Zero Junk Food)</span>
+                            <input type="checkbox" id="goal-weekly-2" onchange="saveProgress()" class="goal-cb w-5 h-5 rounded bg-slate-900 border-slate-700 text-red-600 focus:ring-0">
+                            <span class="text-slate-200 text-sm font-semibold">Zero Unplanned Junk Food Intake</span>
                         </label>
                     </div>
                 </div>
@@ -340,23 +441,77 @@
     </main>
 
     <!-- EXERCISE INSTRUCTION MODAL -->
-    <div id="exercise-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity">
-        <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-lg w-full mx-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">&times;</button>
-            <h2 id="modal-title" class="text-xl font-bold text-blue-400 mb-1">Exercise Title</h2>
-            <p id="modal-target" class="text-xs text-amber-400 font-semibold mb-3 uppercase">Target Muscle</p>
+    <div id="exercise-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden opacity-0 transition-opacity">
+        <div class="bg-slate-900 border border-red-900/60 rounded-xl p-6 max-w-lg w-full mx-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+            <h2 id="modal-title" class="text-xl font-black text-red-500 mb-1 uppercase tracking-wider">Exercise Title</h2>
+            <p id="modal-target" class="text-xs text-amber-500 font-bold mb-3 uppercase">Target Muscle</p>
             
-            <div id="modal-video-container" class="w-full aspect-video bg-black rounded-lg mb-4 overflow-hidden shadow-inner">
+            <div id="modal-video-container" class="w-full aspect-video bg-black rounded-lg mb-4 overflow-hidden border border-red-900/30">
                 <iframe id="modal-video-iframe" class="w-full h-full" src="" title="Exercise Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
 
             <div id="modal-desc" class="text-slate-300 text-sm space-y-2 mb-6 leading-relaxed"></div>
-            <button onclick="closeModal()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg transition">Got It</button>
+            <button onclick="closeModal()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded-lg transition uppercase tracking-wider shadow-lg shadow-red-900/50">Execute</button>
         </div>
     </div>
 
-    <!-- JavaScript Application Logic & Chart Integration -->
+    <!-- JavaScript Application Logic & 4-Week Program Script -->
     <script>
+        const sigmaQuotes = [
+            "\"Work in silence. Let your success make the noise.\"",
+            "\"No shortcuts. No cheat days. Only relentless execution.\"",
+            "\"Don't adapt to the world. Make the world adapt to you.\"",
+            "\"The iron never lies to you. 100kg is always 100kg.\"",
+            "\"Discipline is choosing between what you want now and what you want most.\"",
+            "\"They laugh at your dreams until you build them.\""
+        ];
+
+        let quoteIndex = 0;
+        setInterval(() => {
+            quoteIndex = (quoteIndex + 1) % sigmaQuotes.length;
+            document.getElementById('ticker-quote').innerText = sigmaQuotes[quoteIndex];
+        }, 6000);
+
+        const programMap = {
+            1: {
+                title: 'Week 1: Baseline Focus',
+                badge: 'Baseline',
+                desc: 'Establish strict form, clean body lines, and solid baseline repetition targets.',
+                pushTarget: '3 sets x 10 reps',
+                rowTarget: '4 sets x 10 reps',
+                tempoTarget: '1s down / 1s up',
+                weightTarget: 'Bodyweight'
+            },
+            2: {
+                title: 'Week 2: Volume Push',
+                badge: 'Volume Push',
+                desc: 'Increase total repetition volume by adding +2 reps per set on all primary movements.',
+                pushTarget: '3 sets x 12 reps',
+                rowTarget: '4 sets x 12 reps',
+                tempoTarget: '1s down / 1s up',
+                weightTarget: 'Bodyweight'
+            },
+            3: {
+                title: 'Week 3: Time Under Tension (TUT)',
+                badge: 'Slow Tempo',
+                desc: 'Enforce a strict 3-second eccentric (lowering) phase on every single rep to maximize muscle fiber recruitment.',
+                pushTarget: '3 sets x 10 reps',
+                rowTarget: '4 sets x 10 reps',
+                tempoTarget: '3s lowering phase',
+                weightTarget: 'Bodyweight'
+            },
+            4: {
+                title: 'Week 4: Heavy Load / Leverage Shift',
+                badge: 'Max Difficulty',
+                desc: 'Elevate your feet on a chair or add 3-5 kg into a backpack to increase load leverage.',
+                pushTarget: '3 sets x 8-10 reps',
+                rowTarget: '4 sets x 8-10 reps',
+                tempoTarget: '2s down / 1s up',
+                weightTarget: '+3-5kg Backpack'
+            }
+        };
+
         const workoutDatabase = {
             bulk: {
                 day1: [
@@ -398,23 +553,23 @@
 
         const dietDatabase = {
             bulk: `
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                <div class="sigma-card p-4 rounded-xl">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold text-lg text-emerald-400"><i class="fa-solid fa-sun mr-2"></i> Breakfast (8:00 AM)</h3>
-                        <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded font-semibold">~25g Protein</span>
+                        <h3 class="font-bold text-lg text-red-500 uppercase"><i class="fa-solid fa-sun mr-2"></i> Fuel 1: Breakfast (8:00 AM)</h3>
+                        <span class="text-xs bg-red-950 text-red-400 border border-red-800/40 px-2 py-1 rounded font-bold">~25g Protein</span>
                     </div>
-                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside font-medium">
                         <li>3 Boiled Eggs (2 whole + 1 white)</li>
                         <li>2 Roti with Peanut Butter OR 1 large bowl Milk Oats</li>
                         <li>1 Banana (Shobri/Sagor)</li>
                     </ul>
                 </div>
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                <div class="sigma-card p-4 rounded-xl">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold text-lg text-amber-400"><i class="fa-solid fa-utensils mr-2"></i> Lunch (1:30 PM)</h3>
-                        <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-1 rounded font-semibold">~35g Protein</span>
+                        <h3 class="font-bold text-lg text-white uppercase"><i class="fa-solid fa-utensils mr-2"></i> Fuel 2: Lunch (1:30 PM)</h3>
+                        <span class="text-xs bg-red-950 text-red-400 border border-red-800/40 px-2 py-1 rounded font-bold">~35g Protein</span>
                     </div>
-                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside font-medium">
                         <li>2 cups cooked Rice (Carb Surplus)</li>
                         <li>150g Chicken Breast OR 150g Fish (Rui/Katla)</li>
                         <li>1 bowl Thick Lentils (Ghaora Masoor Dal)</li>
@@ -422,24 +577,24 @@
                 </div>
             `,
             cut: `
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                <div class="sigma-card p-4 rounded-xl">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold text-lg text-emerald-400"><i class="fa-solid fa-sun mr-2"></i> Breakfast (8:00 AM)</h3>
-                        <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded font-semibold">~25g Protein</span>
+                        <h3 class="font-bold text-lg text-red-500 uppercase"><i class="fa-solid fa-sun mr-2"></i> Fuel 1: Breakfast (8:00 AM)</h3>
+                        <span class="text-xs bg-red-950 text-red-400 border border-red-800/40 px-2 py-1 rounded font-bold">~25g Protein</span>
                     </div>
-                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
-                        <li>3 Boiled Egg Whites (Skip yolks for deficit)</li>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside font-medium">
+                        <li>3 Boiled Egg Whites (Skip yolks for strict deficit)</li>
                         <li>1 Roti OR Water-cooked Oats with Chia seeds</li>
                     </ul>
                 </div>
             `,
             recomp: `
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
+                <div class="sigma-card p-4 rounded-xl">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold text-lg text-emerald-400"><i class="fa-solid fa-sun mr-2"></i> Breakfast (8:00 AM)</h3>
-                        <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded font-semibold">~30g Protein</span>
+                        <h3 class="font-bold text-lg text-red-500 uppercase"><i class="fa-solid fa-sun mr-2"></i> Fuel 1: Breakfast (8:00 AM)</h3>
+                        <span class="text-xs bg-red-950 text-red-400 border border-red-800/40 px-2 py-1 rounded font-bold">~30g Protein</span>
                     </div>
-                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside font-medium">
                         <li>3 Whole Boiled Eggs</li>
                         <li>1.5 Roti with 1 tbsp Tok Doi (Sour Curd)</li>
                     </ul>
@@ -453,7 +608,7 @@
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active-tab', 'text-blue-500'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active-tab'));
             
             document.getElementById('sec-' + tabId).classList.remove('hidden');
             document.getElementById('tab-' + tabId).classList.add('active-tab');
@@ -463,7 +618,22 @@
             } else if (tabId === 'analytics') {
                 renderVolumeTrendChart();
                 renderStrengthTrendChart();
+            } else if (tabId === 'program') {
+                loadProgramWeek();
             }
+        }
+
+        function loadProgramWeek() {
+            const weekKey = document.getElementById('program-week-select').value;
+            const weekData = programMap[weekKey] || programMap[1];
+
+            document.getElementById('prog-week-title').innerText = weekData.title;
+            document.getElementById('prog-week-badge').innerText = weekData.badge;
+            document.getElementById('prog-week-desc').innerText = weekData.desc;
+            document.getElementById('prog-push-target').innerText = weekData.pushTarget;
+            document.getElementById('prog-row-target').innerText = weekData.rowTarget;
+            document.getElementById('prog-tempo-target').innerText = weekData.tempoTarget;
+            document.getElementById('prog-weight-target').innerText = weekData.weightTarget;
         }
 
         function calculateMetrics() {
@@ -474,7 +644,7 @@
             const height = parseFloat(document.getElementById('calc-height').value);
 
             if (!age || !weight || !height) {
-                alert('Please enter valid numeric values for age, weight, and height.');
+                alert('Please enter valid numeric values.');
                 return;
             }
 
@@ -492,7 +662,7 @@
             updateProfileUI();
             loadWorkoutDay();
             loadDietPlan();
-            alert('Target updated! Plans automatically adjusted.');
+            alert('Parameters locked & updated!');
         }
 
         function getBmiCategory(bmi) {
@@ -524,7 +694,7 @@
             const protein = saved ? saved.targetProtein : 110;
             const bmi = saved ? saved.bmi : (65 / 2.89).toFixed(1);
 
-            const goalNames = { bulk: 'Lean Bulk', cut: 'Fat Loss & Cut', recomp: 'Strength Recomp' };
+            const goalNames = { bulk: 'Lean Bulk', cut: 'Fat Loss Shred', recomp: 'Strength Recomp' };
 
             document.getElementById('res-goal-name').innerText = goalNames[target];
             document.getElementById('res-bmi').innerText = `${bmi} (${getBmiCategory(parseFloat(bmi))})`;
@@ -547,7 +717,7 @@
             const currentRoutine = workoutDatabase[targetKey] || workoutDatabase.bulk;
             
             if (dayKey === 'rest') {
-                container.innerHTML = `<div class="bg-slate-800 p-4 rounded-xl border border-slate-700 col-span-2"><h3 class="font-bold text-white">Active Recovery & Mobility</h3></div>`;
+                container.innerHTML = `<div class="sigma-card p-4 rounded-xl col-span-2 text-center"><h3 class="font-bold text-red-500 uppercase">Active Recovery & Sleep</h3><p class="text-xs text-slate-400 mt-1">"Rest is when the muscle actually grows."</p></div>`;
                 return;
             }
 
@@ -556,7 +726,7 @@
 
             dayExercises.forEach(ex => {
                 const card = document.createElement('div');
-                card.className = `bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md flex flex-col justify-between`;
+                card.className = `sigma-card p-4 rounded-xl shadow-md flex flex-col justify-between`;
                 
                 if (!savedLogs[ex.id]) {
                     savedLogs[ex.id] = Array.from({ length: ex.defaultSets }, () => ({ reps: '', weight: '' }));
@@ -569,10 +739,10 @@
                             <span class="w-12 text-slate-400 font-bold">Set ${setIdx + 1}</span>
                             <input type="number" placeholder="Reps (${ex.targetReps})" value="${setData.reps}" 
                                 oninput="updateSetLog('${ex.id}', ${setIdx}, 'reps', this.value)"
-                                class="w-24 bg-slate-900 border border-slate-700 rounded p-1.5 text-white text-center focus:outline-none focus:border-blue-500">
+                                class="w-24 bg-slate-900 border border-slate-700 rounded p-1.5 text-white text-center focus:outline-none focus:border-red-500 font-bold">
                             <input type="text" placeholder="Weight (kg)" value="${setData.weight}" 
                                 oninput="updateSetLog('${ex.id}', ${setIdx}, 'weight', this.value)"
-                                class="w-28 bg-slate-900 border border-slate-700 rounded p-1.5 text-white text-center focus:outline-none focus:border-blue-500">
+                                class="w-28 bg-slate-900 border border-slate-700 rounded p-1.5 text-white text-center focus:outline-none focus:border-red-500 font-bold">
                         </div>
                     `;
                 });
@@ -582,13 +752,13 @@
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <h3 class="font-bold text-white text-base">${ex.name}</h3>
-                                <p class="text-xs text-amber-400">${ex.target}</p>
+                                <p class="text-xs text-amber-500 font-semibold">${ex.target}</p>
                             </div>
-                            <button onclick="showInstruction('${ex.name}', '${ex.target}', '${ex.desc}', '${ex.videoUrl}')" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 py-1 px-2.5 rounded transition">
-                                <i class="fa-solid fa-play mr-1 text-blue-400"></i> Guide
+                            <button onclick="showInstruction('${ex.name}', '${ex.target}', '${ex.desc}', '${ex.videoUrl}')" class="text-xs bg-red-950 border border-red-900/50 hover:bg-red-900/60 text-red-300 py-1 px-2.5 rounded transition uppercase font-bold">
+                                <i class="fa-solid fa-play mr-1 text-red-500"></i> Form Guide
                             </button>
                         </div>
-                        <div class="mt-3 border-t border-slate-700/50 pt-2">${setsHTML}</div>
+                        <div class="mt-3 border-t border-slate-800 pt-2">${setsHTML}</div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -610,7 +780,6 @@
             updateDashboardStatus();
         }
 
-        // CHART RENDERING ENGINES
         function renderDashboardAdherenceChart() {
             const ctx = document.getElementById('dashboardAdherenceChart').getContext('2d');
             if (dashboardChartInstance) dashboardChartInstance.destroy();
@@ -620,10 +789,10 @@
                 data: {
                     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                     datasets: [{
-                        label: 'Completion Adherence (%)',
-                        data: [60, 80, 100, 75, 90, 100, 85],
-                        borderColor: '#3b82f6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.15)',
+                        label: 'Consistency (%)',
+                        data: [70, 85, 100, 80, 95, 100, 90],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.15)',
                         fill: true,
                         tension: 0.4,
                         borderWidth: 3
@@ -652,22 +821,22 @@
                 if (Array.isArray(sets)) {
                     sets.forEach(s => {
                         const r = parseFloat(s.reps) || 0;
-                        const w = parseFloat(s.weight) || 5; // Default bodyweight load factor
+                        const w = parseFloat(s.weight) || 5;
                         totalVolume += (r * w);
                     });
                 }
             });
 
-            const volumeData = [totalVolume * 0.7, totalVolume * 0.8, totalVolume * 0.9, totalVolume || 450];
+            const volumeData = [totalVolume * 0.7, totalVolume * 0.8, totalVolume * 0.9, totalVolume || 500];
 
             volumeChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Session 1', 'Session 2', 'Session 3', 'Current Session'],
+                    labels: ['Session 1', 'Session 2', 'Session 3', 'Current'],
                     datasets: [{
                         label: 'Volume (kg x Reps)',
                         data: volumeData,
-                        backgroundColor: '#10b981',
+                        backgroundColor: '#ef4444',
                         borderRadius: 6
                     }]
                 },
@@ -706,9 +875,9 @@
             strengthChartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4 Target'],
+                    labels: ['W1', 'W2', 'W3', 'W4'],
                     datasets: [{
-                        label: 'Estimated 1RM (kg)',
+                        label: 'Est. 1RM (kg)',
                         data: strengthData,
                         borderColor: '#f59e0b',
                         backgroundColor: 'rgba(245, 158, 11, 0.15)',
@@ -778,7 +947,7 @@
                     updateTimerDisplay();
                 } else {
                     pauseTimer();
-                    alert("Time's up! Back to your set!");
+                    alert("Interval complete. Time to work.");
                 }
             }, 1000);
         }
@@ -834,29 +1003,30 @@
             const statusEl = document.getElementById('dash-workout-status');
             if (hasLoggedWorkout) {
                 statusEl.innerText = 'Completed';
-                statusEl.className = 'text-2xl font-bold text-emerald-400';
+                statusEl.className = 'text-2xl font-bold text-red-500 glow-red';
             } else {
                 statusEl.innerText = 'Pending';
-                statusEl.className = 'text-2xl font-bold text-amber-400';
+                statusEl.className = 'text-2xl font-bold text-amber-500';
             }
         }
 
         function resetAllData() {
-            if (confirm("Are you sure you want to clear all your saved data, rep logs, and progress?")) {
+            if (confirm("Are you sure you want to clear all data and start fresh?")) {
                 localStorage.clear();
                 loadProfile();
                 loadWorkoutDay();
                 loadDietPlan();
                 loadProgress();
+                loadProgramWeek();
                 resetTimer();
             }
         }
 
-        // Initialize application state
         loadProfile();
         loadWorkoutDay();
         loadDietPlan();
         loadProgress();
+        loadProgramWeek();
         renderDashboardAdherenceChart();
     </script>
 </body>
