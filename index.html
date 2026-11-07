@@ -32,18 +32,8 @@
             box-shadow: 0 0 18px rgba(0, 229, 255, 0.35);
         }
 
-        .penalty-window {
-            background: linear-gradient(135deg, rgba(30, 6, 6, 0.96), rgba(16, 3, 3, 0.98)) !important;
-            border: 1px solid #ef4444 !important;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4) !important;
-        }
-
         .glow-blue {
             text-shadow: 0 0 8px rgba(0, 210, 255, 0.8);
-        }
-
-        .glow-red {
-            text-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
         }
 
         .active-tab {
@@ -58,6 +48,57 @@
     <!-- Hidden Audio Container for Solo Leveling BGM -->
     <div id="audio-container" class="hidden"></div>
 
+    <!-- FIRST-TIME HUNTER REGISTRATION GATEWAY MODAL -->
+    <div id="setup-modal" class="fixed inset-0 bg-black/95 backdrop-blur-lg z-50 flex items-center justify-center p-4">
+        <div class="system-window rounded-xl p-6 max-w-md w-full shadow-2xl border border-cyan-400 text-xs">
+            <div class="text-center mb-4">
+                <i class="fa-solid fa-skull text-3xl text-cyan-400 glow-blue animate-pulse mb-2"></i>
+                <h2 class="system-font text-lg font-black text-white glow-blue uppercase">SYSTEM AWAKENING</h2>
+                <p class="text-[11px] text-cyan-300 italic mt-1">"The System has chosen you. Register your Hunter parameters to initialize your stats."</p>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Hunter Legal Name</label>
+                    <input type="text" id="init-name" placeholder="Tanzim Ahmed" class="w-full bg-slate-900 border border-cyan-700 rounded p-2 text-white text-xs focus:outline-none focus:border-cyan-400 font-bold system-font">
+                </div>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Age</label>
+                        <input type="number" id="init-age" value="26" class="w-full bg-slate-900 border border-cyan-700 rounded p-2 text-white text-xs text-center focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Weight (kg)</label>
+                        <input type="number" id="init-weight" value="65" step="0.5" class="w-full bg-slate-900 border border-cyan-700 rounded p-2 text-white text-xs text-center focus:outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Height (cm)</label>
+                        <input type="number" id="init-height" value="170" class="w-full bg-slate-900 border border-cyan-700 rounded p-2 text-white text-xs text-center focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Sex</label>
+                        <select id="init-gender" class="w-full bg-slate-900 border border-cyan-700 rounded p-2 text-white text-xs focus:outline-none">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Build Type & Strategy</label>
+                    <select id="init-target" class="w-full bg-slate-900 border border-cyan-700 rounded p-2 text-cyan-400 text-xs focus:outline-none font-bold system-font">
+                        <option value="bulk">Lean Bulk (High-Metabolism Muscle Expansion)</option>
+                        <option value="cut">Fat Loss Shred (Belly Fat Elimination)</option>
+                        <option value="recomp">Strength Recomposition (Power Maintain)</option>
+                    </select>
+                </div>
+                <button onclick="confirmInitialSetup()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black py-2.5 rounded transition uppercase system-font tracking-wider text-xs shadow-lg shadow-cyan-500/40 mt-3">
+                    CONFIRM & ACCEPT SYSTEM AWAKENING
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- System Header Navigation -->
     <header class="bg-slate-950 border-b border-cyan-500/40 sticky top-0 z-40 backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-4 py-2.5 flex flex-wrap justify-between items-center">
@@ -65,7 +106,7 @@
                 <i class="fa-solid fa-gem text-xl text-cyan-400 glow-blue animate-pulse"></i>
                 <div>
                     <span class="system-font text-base font-black tracking-widest text-white glow-blue">THE SYSTEM</span>
-                    <span class="text-[9px] text-cyan-400 block tracking-widest -mt-1 system-font">HUNTER: <span id="nav-player-name" class="text-white font-bold">TANZIM</span> | RANK: <span id="nav-player-rank" class="text-amber-400 font-bold">E-RANK</span></span>
+                    <span class="text-[9px] text-cyan-400 block tracking-widest -mt-1 system-font">HUNTER: <span id="nav-player-name" class="text-white font-bold">HUNTER</span> | RANK: <span id="nav-player-rank" class="text-amber-400 font-bold">E-RANK</span></span>
                 </div>
             </div>
             <nav class="flex space-x-1.5 sm:space-x-2.5 text-xs font-bold mt-2 sm:mt-0 overflow-x-auto system-font uppercase tracking-wider">
@@ -75,13 +116,12 @@
                 <button onclick="switchTab('analytics')" id="tab-analytics" class="nav-btn py-1 px-2 text-slate-400 hover:text-cyan-400 whitespace-nowrap"><i class="fa-solid fa-chart-nodes mr-1"></i> Ranking</button>
                 <button onclick="switchTab('timer')" id="tab-timer" class="nav-btn py-1 px-2 text-slate-400 hover:text-cyan-400 whitespace-nowrap"><i class="fa-solid fa-stopwatch mr-1"></i> Recovery</button>
                 <button onclick="switchTab('diet')" id="tab-diet" class="nav-btn py-1 px-2 text-slate-400 hover:text-cyan-400 whitespace-nowrap"><i class="fa-solid fa-flask mr-1"></i> Potions</button>
-                <button onclick="switchTab('profile')" id="tab-profile" class="nav-btn py-1 px-2 text-slate-400 hover:text-cyan-400 whitespace-nowrap"><i class="fa-solid fa-user-gear mr-1"></i> Biometrics</button>
             </nav>
         </div>
         
-        <div id="header-ticker-bg" class="bg-cyan-950/40 border-t border-b border-cyan-500/30 py-1 px-4 text-center transition-colors duration-300">
+        <div class="bg-cyan-950/40 border-t border-b border-cyan-500/30 py-1 px-4 text-center">
             <p class="text-[11px] italic font-semibold text-cyan-300 tracking-wider system-font" id="system-announcement">
-                [SYSTEM NOTIFICATION: DAILY QUEST AVAILABLE. ACTIVATE DUNGEON TO COMMENCE.]
+                [REAL-TIME SYNC: DAILY QUESTS REFRESH EVERY 24 HOURS. TRACKING ACTIVE.]
             </p>
         </div>
     </header>
@@ -94,31 +134,20 @@
             <div class="mb-5 flex justify-between items-center">
                 <div>
                     <h1 class="system-font text-xl font-black text-white glow-blue uppercase">PLAYER STATUS WINDOW</h1>
-                    <p class="text-cyan-400/80 text-xs italic">"Prepare to Level Up. The Shadow Army awaits your command."</p>
+                    <p class="text-cyan-400/80 text-xs italic">"Prepare to Level Up. Real-time 24h task synchronization active."</p>
                 </div>
                 <button onclick="resetAllData()" class="text-[11px] bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 px-2.5 py-1 rounded transition system-font">
-                    <i class="fa-solid fa-skull mr-1"></i> Reset System
+                    <i class="fa-solid fa-skull mr-1"></i> System Reset
                 </button>
             </div>
 
-            <!-- Penalty Zone Banner Alert -->
-            <div id="penalty-banner" class="hidden mb-5 penalty-window p-4 rounded-xl flex items-center justify-between">
-                <div>
-                    <h3 class="system-font text-sm font-black text-red-500 glow-red uppercase"><i class="fa-solid fa-triangle-exclamation mr-1.5"></i> [PENALTY ZONE ACTIVE]</h3>
-                    <p class="text-xs text-red-200 mt-0.5">Daily Quests were neglected. You have been teleported to the Desert Penalty Zone. Complete endurance reps immediately to escape.</p>
-                </div>
-                <button onclick="clearPenaltyZone()" class="bg-red-600 hover:bg-red-500 text-white system-font font-black text-xs px-3 py-1.5 rounded transition shadow">
-                    EXECUTE PENALTY CLEAR
-                </button>
-            </div>
-
-            <div id="main-status-window" class="system-window p-5 rounded-xl mb-5 relative overflow-hidden transition-all duration-300">
+            <div class="system-window p-5 rounded-xl mb-5 relative overflow-hidden">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 relative z-10 text-xs sm:text-sm">
                     <div>
-                        <span class="text-[10px] text-cyan-400 uppercase tracking-widest system-font block mb-0.5">Hunter Identification</span>
-                        <h2 class="text-lg font-black text-white system-font glow-blue uppercase" id="display-player-name">TANZIM AHMED</h2>
-                        <p class="text-xs text-slate-300 font-semibold mt-1">Title: <span class="text-amber-400" id="display-player-title">Shadow Monarch Apprentice</span></p>
-                        <p class="text-xs text-slate-300 font-semibold">Job Class: <span class="text-cyan-400">High-Metabolism Muscle Builder</span></p>
+                        <span class="text-[10px] text-cyan-400 uppercase tracking-widest system-font block mb-0.5">Hunter Legal Name</span>
+                        <h2 class="text-lg font-black text-white system-font glow-blue uppercase" id="display-player-name">--</h2>
+                        <p class="text-xs text-slate-300 font-semibold mt-1">Title: <span class="text-amber-400">Shadow Monarch Apprentice</span></p>
+                        <p class="text-xs text-slate-300 font-semibold">Active Strategy: <span class="text-cyan-400" id="display-player-strategy">--</span></p>
                     </div>
                     <div>
                         <span class="text-[10px] text-cyan-400 uppercase tracking-widest system-font block mb-0.5">System Level & Rank</span>
@@ -127,14 +156,14 @@
                             <span class="text-[11px] text-amber-400 system-font font-bold" id="player-rank-badge">[ E-RANK ]</span>
                         </div>
                         <div class="w-full bg-slate-900 h-2.5 rounded-full mt-2 overflow-hidden border border-cyan-900">
-                            <div id="exp-bar" class="bg-cyan-400 h-full transition-all duration-500 shadow-[0_0_8px_#00e5ff]" style="width: 15%"></div>
+                            <div id="exp-bar" class="bg-cyan-400 h-full transition-all duration-500 shadow-[0_0_8px_#00e5ff]" style="width: 20%"></div>
                         </div>
-                        <span class="text-[9px] text-cyan-400 system-font mt-1 block">QUEST COMPLETION EXP: <span id="exp-text">15%</span></span>
+                        <span class="text-[9px] text-cyan-400 system-font mt-1 block">24H CYCLE REFRESH TIMER: <span id="refresh-timer">23h 59m</span></span>
                     </div>
                     <div>
-                        <span class="text-[10px] text-cyan-400 uppercase tracking-widest system-font block mb-0.5">Zone Status</span>
-                        <h3 class="text-sm font-bold text-emerald-400 system-font mt-1" id="penalty-status">CLEAR (NO PENALTY)</h3>
-                        <p class="text-[11px] text-slate-400 mt-1">Complete daily dungeon raids and food logs before midnight.</p>
+                        <span class="text-[10px] text-cyan-400 uppercase tracking-widest system-font block mb-0.5">Real-Time Sync Status</span>
+                        <h3 class="text-sm font-bold text-emerald-400 system-font mt-1" id="penalty-status">SYNCHRONIZED</h3>
+                        <p class="text-[11px] text-slate-400 mt-1">Parameters locked. No manual editing until system reset.</p>
                     </div>
                 </div>
             </div>
@@ -158,13 +187,13 @@
                 <div class="system-window p-3.5 rounded-xl flex items-center justify-between">
                     <div>
                         <p class="text-cyan-400 text-[10px] uppercase font-semibold system-font">Dungeon Raid Status</p>
-                        <h3 class="text-xl font-bold text-amber-400 system-font" id="dash-workout-status">INCOMPLETE</h3>
+                        <h3 class="text-xl font-bold text-amber-400 system-font" id="dash-workout-status">PENDING</h3>
                     </div>
                     <i class="fa-solid fa-scroll text-2xl text-amber-500/30"></i>
                 </div>
                 <div class="system-window p-3.5 rounded-xl flex items-center justify-between">
                     <div>
-                        <p class="text-cyan-400 text-[10px] uppercase font-semibold system-font">Weekly Consistency</p>
+                        <p class="text-cyan-400 text-[10px] uppercase font-semibold system-font">Tracking Consistency</p>
                         <h3 class="text-xl font-bold text-cyan-400 system-font glow-blue" id="dash-weekly-progress">0%</h3>
                     </div>
                     <i class="fa-solid fa-trophy text-2xl text-cyan-500/30"></i>
@@ -177,7 +206,7 @@
             <div class="mb-5 flex justify-between items-center">
                 <div>
                     <h1 class="system-font text-xl font-black text-white glow-blue uppercase">DAILY QUEST ARCHITECTURE</h1>
-                    <p class="text-cyan-400/80 text-xs italic">"Progressive day-by-day difficulty scaling enforced by the System."</p>
+                    <p class="text-cyan-400/80 text-xs italic">"24-hour cycle automated tasks."</p>
                 </div>
                 <select id="program-week-select" onchange="loadProgramWeek()" class="bg-slate-900 text-cyan-400 border border-cyan-900/50 text-xs rounded-lg p-2 font-bold focus:outline-none system-font">
                     <option value="1">Phase 1: Baseline Quest</option>
@@ -214,20 +243,14 @@
             </div>
         </section>
 
-        <!-- WORKOUT & DUNGEON LOG TAB (REPS ONLY & DAY-BY-DAY SCALING) -->
+        <!-- WORKOUT & DUNGEON LOG TAB (PER-EXERCISE START/END & TOTAL VOLUME SUMMARY) -->
         <section id="sec-workout" class="tab-content hidden">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5 gap-3">
                 <div>
-                    <h1 class="system-font text-xl font-black text-white glow-blue uppercase">DUNGEON RAID PROTOCOL</h1>
-                    <p class="text-cyan-400/80 text-xs italic">"Start raid to initialize BGM. Difficulty automatically intensifies day-by-day."</p>
+                    <h1 class="system-font text-xl font-black text-white glow-blue uppercase">PER-EXERCISE DUNGEON RAID</h1>
+                    <p class="text-cyan-400/80 text-xs italic">"Start and end each exercise independently. Total volume is calculated automatically."</p>
                 </div>
                 <div class="flex items-center space-x-2.5">
-                    <button onclick="startDungeonSession()" id="btn-start-dungeon" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black px-3.5 py-1.5 rounded shadow-lg shadow-cyan-500/30 uppercase system-font text-xs transition">
-                        <i class="fa-solid fa-play mr-1"></i> Start Dungeon
-                    </button>
-                    <button onclick="endDungeonSession()" id="btn-end-dungeon" class="bg-red-600 hover:bg-red-500 text-white font-black px-3.5 py-1.5 rounded shadow-lg uppercase system-font text-xs transition hidden">
-                        <i class="fa-solid fa-flag-checkered mr-1"></i> End & Clear Quest
-                    </button>
                     <select id="workout-day-select" onchange="loadWorkoutDay()" class="bg-slate-900 text-cyan-400 border border-cyan-900/50 text-xs rounded-lg p-2 font-bold focus:outline-none system-font">
                         <option value="day1">Day 1: Push Intensity (Chest/Triceps)</option>
                         <option value="day2">Day 2: Pull Surge (Lats/Biceps)</option>
@@ -237,13 +260,8 @@
                 </div>
             </div>
 
-            <div id="dungeon-status-banner" class="hidden mb-4 p-2.5 rounded bg-cyan-950/60 border border-cyan-400 text-cyan-300 system-font text-xs flex justify-between items-center animate-pulse">
-                <span>[ DUNGEON RAID ACTIVE: BGM STREAMING // TAP SET BUTTONS TO LOG REPS ]</span>
-                <span id="dungeon-timer-display" class="font-bold font-mono text-sm">00:00</span>
-            </div>
-
             <div id="workout-list" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                <!-- Dynamic exercise cards with 3-level quick rep selectors -->
+                <!-- Dynamic exercise cards with per-exercise start/end buttons & rep selectors -->
             </div>
         </section>
 
@@ -251,7 +269,7 @@
         <section id="sec-analytics" class="tab-content hidden">
             <div class="mb-5">
                 <h1 class="system-font text-xl font-black text-white glow-blue uppercase">HUNTER RANKING BOARD & STATS</h1>
-                <p class="text-cyan-400/80 text-xs italic">"Review your daily and weekly progress history and global rank tier."</p>
+                <p class="text-cyan-400/80 text-xs italic">"Review your tracked historical performance and global rank tier."</p>
             </div>
 
             <div class="system-window p-5 rounded-xl mb-5">
@@ -262,8 +280,8 @@
                         <span class="text-xl font-black text-amber-400 system-font glow-blue mt-0.5 block" id="rank-tier-display">E-RANK HUNTER</span>
                     </div>
                     <div class="bg-slate-900/80 p-3 rounded-lg border border-cyan-900">
-                        <span class="text-[10px] text-slate-400 block system-font">Quests Cleared Total</span>
-                        <span class="text-xl font-black text-cyan-400 system-font glow-blue mt-0.5 block" id="total-quests-cleared">0 Quests</span>
+                        <span class="text-[10px] text-slate-400 block system-font">Exercises Cleared Total</span>
+                        <span class="text-xl font-black text-cyan-400 system-font glow-blue mt-0.5 block" id="total-quests-cleared">0 Exercises</span>
                     </div>
                     <div class="bg-slate-900/80 p-3 rounded-lg border border-cyan-900">
                         <span class="text-[10px] text-slate-400 block system-font">Ranking Score</span>
@@ -274,14 +292,14 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                 <div class="system-window p-5 rounded-xl">
-                    <h2 class="text-sm font-bold text-white mb-2 uppercase system-font tracking-wider"><i class="fa-solid fa-bolt text-cyan-400 mr-2"></i> Quest Adherence Consistency</h2>
+                    <h2 class="text-sm font-bold text-white mb-2 uppercase system-font tracking-wider"><i class="fa-solid fa-bolt text-cyan-400 mr-2"></i> Real-Time 24h Tracking Consistency</h2>
                     <div class="w-full h-52">
                         <canvas id="dashboardAdherenceChart"></canvas>
                     </div>
                 </div>
 
                 <div class="system-window p-5 rounded-xl">
-                    <h2 class="text-sm font-bold text-white mb-2 uppercase system-font tracking-wider"><i class="fa-solid fa-weight-hanging text-cyan-400 mr-2"></i> Total Dungeon Tonnage</h2>
+                    <h2 class="text-sm font-bold text-white mb-2 uppercase system-font tracking-wider"><i class="fa-solid fa-weight-hanging text-cyan-400 mr-2"></i> Cumulative Reps Tonnage</h2>
                     <div class="w-full h-52">
                         <canvas id="volumeTrendChart"></canvas>
                     </div>
@@ -330,75 +348,6 @@
             </div>
         </section>
 
-        <!-- BIOMETRICS & NAME SETUP TAB (MOVED TO LAST) -->
-        <section id="sec-profile" class="tab-content hidden">
-            <div class="mb-5">
-                <h1 class="system-font text-xl font-black text-white glow-blue uppercase">HUNTER IDENTITY & METRICS</h1>
-                <p class="text-cyan-400/80 text-xs italic">"Register your hunter profile and biometric parameters into the System."</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div class="system-window p-5 rounded-xl">
-                    <h3 class="font-bold text-sm text-cyan-400 mb-3 uppercase system-font">Hunter Registration</h3>
-                    <div class="space-y-3.5 text-xs">
-                        <div>
-                            <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Hunter Name</label>
-                            <input type="text" id="input-hunter-name" value="Tanzim Ahmed" class="w-full bg-slate-900 border border-cyan-700/60 rounded-lg p-2 text-white text-xs focus:outline-none focus:border-cyan-400 font-bold system-font">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">System Goal Target</label>
-                            <select id="calc-target" class="w-full bg-slate-900 border border-cyan-700/60 rounded-lg p-2 text-cyan-400 text-xs focus:outline-none font-bold system-font">
-                                <option value="bulk">Lean Bulk (High-Metabolism Muscle Expansion)</option>
-                                <option value="cut">Fat Loss Shred (Belly Fat Elimination)</option>
-                                <option value="recomp">Strength Recomposition (Power Maintain)</option>
-                            </select>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Age</label>
-                                <input type="number" id="calc-age" value="26" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs text-center focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Weight (kg)</label>
-                                <input type="number" id="calc-weight" value="65" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs text-center focus:outline-none">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] text-slate-400 mb-1 uppercase font-semibold system-font">Height (cm)</label>
-                            <input type="number" id="calc-height" value="170" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs text-center focus:outline-none">
-                        </div>
-                        <button onclick="calculateMetrics()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black py-2 rounded-lg transition shadow-lg shadow-cyan-900/50 mt-1 uppercase system-font tracking-wider text-xs">
-                            UPDATE HUNTER IDENTITY
-                        </button>
-                    </div>
-                </div>
-
-                <div class="system-window p-5 rounded-xl flex flex-col justify-between text-xs">
-                    <div>
-                        <h3 class="font-bold text-sm text-cyan-400 mb-3 uppercase system-font">System Diagnostics</h3>
-                        <div class="space-y-3">
-                            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
-                                <span class="text-slate-400 system-font">Active Strategy</span>
-                                <span id="res-goal-name" class="font-bold text-cyan-400 uppercase system-font">--</span>
-                            </div>
-                            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
-                                <span class="text-slate-400 system-font">Body Mass Index (BMI)</span>
-                                <span id="res-bmi" class="font-bold text-white system-font">--</span>
-                            </div>
-                            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
-                                <span class="text-slate-400 system-font">Required Energy</span>
-                                <span id="res-target-cal" class="font-bold text-cyan-400 glow-blue system-font">-- kcal</span>
-                            </div>
-                            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
-                                <span class="text-slate-400 system-font">Required Protein</span>
-                                <span id="res-target-protein" class="font-bold text-white system-font">-- g</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <!-- EXERCISE INSTRUCTION MODAL -->
@@ -417,26 +366,8 @@
         </div>
     </div>
 
-    <!-- JavaScript Application Logic & Ranking / Music / Penalty Engine -->
+    <!-- JavaScript Application Logic -->
     <script>
-        let dungeonActive = false;
-        let dungeonTimerInterval = null;
-        let dungeonSeconds = 0;
-        let isPenaltyActive = false;
-
-        const systemAnnouncements = [
-            "[SYSTEM NOTIFICATION: DAILY QUEST AVAILABLE. ACTIVATE DUNGEON TO COMMENCE.]",
-            "[SYSTEM ALERT: DAY-BY-DAY DIFFICULTY SCALING ACTIVE. PUSH BEYOND YOUR LIMITS.]",
-            "[SHADOW MONARCH: DISCIPLINE IS YOUR GREATEST WEAPON.]",
-            "[SYSTEM: COMPLETE ALL RAIDS BEFORE MIDNIGHT TO PREVENT PENALTY ZONE.]"
-        ];
-
-        let announceIndex = 0;
-        setInterval(() => {
-            announceIndex = (announceIndex + 1) % systemAnnouncements.length;
-            document.getElementById('system-announcement').innerText = systemAnnouncements[announceIndex];
-        }, 6000);
-
         const programMap = {
             1: { title: 'Phase 1: Baseline Quest', badge: 'Baseline', desc: 'Establish strict form and baseline repetition targets with standard 1s cadence.', pushTarget: '3 sets x 10 reps', rowTarget: '4 sets x 10 reps', tempoTarget: '1s down / 1s up', weightTarget: 'Standard Bodyweight' },
             2: { title: 'Phase 2: Volume Surge', badge: 'Volume Push', desc: 'Difficulty scaling increased: higher rep density and reduced rest intervals.', pushTarget: '3 sets x 15 reps', rowTarget: '4 sets x 15 reps', tempoTarget: '1s down / 1s up', weightTarget: 'Elevated Density' },
@@ -502,6 +433,70 @@
         let dashboardChartInstance = null;
         let volumeChartInstance = null;
 
+        // INITIALIZATION & GATEWAY CHECK
+        function checkInitialSetup() {
+            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
+            if (!saved) {
+                document.getElementById('setup-modal').classList.remove('hidden');
+            } else {
+                document.getElementById('setup-modal').classList.add('hidden');
+                loadProfileData();
+            }
+        }
+
+        function confirmInitialSetup() {
+            const hunterName = document.getElementById('init-name').value.trim() || 'Tanzim Ahmed';
+            const age = parseFloat(document.getElementById('init-age').value) || 26;
+            const weight = parseFloat(document.getElementById('init-weight').value) || 65;
+            const height = parseFloat(document.getElementById('init-height').value) || 170;
+            const gender = document.getElementById('init-gender').value;
+            const target = document.getElementById('init-target').value;
+
+            const heightM = height / 100;
+            const bmi = (weight / (heightM * heightM)).toFixed(1);
+            let bmr = (gender === 'male') ? (10 * weight) + (6.25 * height) - (5 * age) + 5 : (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            let targetCalories = Math.round(target === 'bulk' ? bmr * 1.35 + 350 : target === 'cut' ? bmr * 1.2 - 300 : bmr * 1.35);
+            let targetProtein = Math.round(target === 'cut' ? weight * 2.0 : weight * 1.8);
+
+            const profileData = { hunterName, age, weight, height, gender, target, bmi, targetCalories, targetProtein, timestamp: Date.now() };
+            localStorage.setItem('build_gain_profile', JSON.stringify(profileData));
+            localStorage.setItem('system_init_time', Date.now().toString());
+
+            document.getElementById('setup-modal').classList.add('hidden');
+            loadProfileData();
+            loadWorkoutDay();
+            loadDietPlan();
+            updateDashboardStatus();
+            alert('[SYSTEM INITIALIZED: HUNTER PARAMETERS LOCKED PERMANENTLY UNTIL RESET]');
+        }
+
+        function loadProfileData() {
+            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
+            if (!saved) return;
+
+            const goalNames = { bulk: 'Lean Bulk', cut: 'Fat Loss Shred', recomp: 'Strength Recomp' };
+
+            document.getElementById('nav-player-name').innerText = saved.hunterName;
+            document.getElementById('display-player-name').innerText = saved.hunterName;
+            document.getElementById('display-player-strategy').innerText = goalNames[saved.target];
+            document.getElementById('dash-cal-display').innerText = saved.targetCalories;
+            document.getElementById('dash-protein-display').innerText = `${saved.targetProtein} g`;
+
+            // 24-hour cycle timer simulation
+            start24HourCycleTimer();
+        }
+
+        function start24HourCycleTimer() {
+            setInterval(() => {
+                const initTime = parseInt(localStorage.getItem('system_init_time') || Date.now());
+                const elapsed = Date.now() - initTime;
+                const remaining = Math.max(0, (24 * 60 * 60 * 1000) - (elapsed % (24 * 60 * 60 * 1000)));
+                const hours = Math.floor(remaining / (1000 * 60 * 60));
+                const mins = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('refresh-timer').innerText = `${hours}h ${mins}m`;
+            }, 1000);
+        }
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active-tab'));
@@ -520,59 +515,109 @@
             }
         }
 
-        function startDungeonSession() {
-            dungeonActive = true;
-            document.getElementById('btn-start-dungeon').classList.add('hidden');
-            document.getElementById('btn-end-dungeon').classList.remove('hidden');
-            document.getElementById('dungeon-status-banner').classList.remove('hidden');
+        // PER-EXERCISE DUNGEON BGM & TIMER CONTROLLER
+        function startExerciseSession(exId) {
+            document.getElementById(`btn-start-${exId}`).classList.add('hidden');
+            document.getElementById(`btn-end-${exId}`).classList.remove('hidden');
+            document.getElementById(`badge-status-${exId}`).innerText = 'RAID ACTIVE';
+            document.getElementById(`badge-status-${exId}`).className = 'text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-500 px-2 py-0.5 rounded font-bold animate-pulse';
 
+            // Stream Solo Leveling BGM
             const audioContainer = document.getElementById('audio-container');
             audioContainer.innerHTML = `<iframe width="0" height="0" src="https://www.youtube.com/embed/V949Z38T488?autoplay=1" allow="autoplay"></iframe>`;
-
-            dungeonSeconds = 0;
-            dungeonTimerInterval = setInterval(() => {
-                dungeonSeconds++;
-                const mins = Math.floor(dungeonSeconds / 60).toString().padStart(2, '0');
-                const secs = (dungeonSeconds % 60).toString().padStart(2, '0');
-                document.getElementById('dungeon-timer-display').innerText = `${mins}:${secs}`;
-            }, 1000);
         }
 
-        function endDungeonSession() {
-            dungeonActive = false;
-            clearInterval(dungeonTimerInterval);
-            document.getElementById('btn-end-dungeon').classList.add('hidden');
-            document.getElementById('btn-start-dungeon').classList.remove('hidden');
-            document.getElementById('dungeon-status-banner').classList.add('hidden');
-            document.getElementById('audio-container').innerHTML = '';
+        function endExerciseSession(exId) {
+            document.getElementById(`btn-end-${exId}`).classList.add('hidden');
+            document.getElementById(`btn-start-${exId}`).classList.remove('hidden');
+            document.getElementById(`badge-status-${exId}`).innerText = 'CLEARED';
+            document.getElementById(`badge-status-${exId}`).className = 'text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-500 px-2 py-0.5 rounded font-bold';
+            document.getElementById('audio-container').innerHTML = ''; // Stop music
 
+            // Save exercise completion
             const history = JSON.parse(localStorage.getItem('build_gain_history') || '[]');
-            history.push({ date: new Date().toLocaleDateString(), type: 'Dungeon Raid', duration: dungeonSeconds });
+            history.push({ date: new Date().toLocaleDateString(), exerciseId: exId });
             localStorage.setItem('build_gain_history', JSON.stringify(history));
 
-            isPenaltyActive = false;
-            localStorage.setItem('penalty_active', 'false');
-
             updateDashboardStatus();
-            alert('[DUNGEON CLEARED! EXPERIENCE POINTS & HUNTER RANKING POINTS AWARDED]');
+            alert('[EXERCISE RAID CLEARED! REPS LOGGED TO SYSTEM]');
         }
 
-        function triggerPenaltyZone() {
-            isPenaltyActive = true;
-            localStorage.setItem('penalty_active', 'true');
-            document.getElementById('penalty-banner').classList.remove('hidden');
-            document.getElementById('main-status-window').classList.add('penalty-window');
-            document.getElementById('header-ticker-bg').className = 'bg-red-950/60 border-t border-b border-red-500/40 py-1 px-4 text-center';
-            document.getElementById('system-announcement').innerText = '[CRITICAL SYSTEM ALERT: PENALTY ZONE ENFORCED. ESCAPE IMMEDIATELY.]';
+        // WORKOUT SYSTEM WITH PER-EXERCISE START/END & TOTAL VOLUME SUMMARY
+        function loadWorkoutDay() {
+            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
+            const targetKey = saved ? saved.target : 'bulk';
+            const dayKey = document.getElementById('workout-day-select').value;
+            const container = document.getElementById('workout-list');
+            container.innerHTML = '';
+
+            const currentRoutine = workoutDatabase[targetKey] || workoutDatabase.bulk;
+            const savedLogs = JSON.parse(localStorage.getItem('build_gain_set_logs') || '{}');
+            const dayExercises = currentRoutine[dayKey] || [];
+
+            dayExercises.forEach(ex => {
+                const card = document.createElement('div');
+                card.className = `system-window p-4 rounded-xl shadow-md flex flex-col justify-between text-xs`;
+                
+                if (!savedLogs[ex.id]) {
+                    savedLogs[ex.id] = Array.from({ length: ex.defaultSets }, () => ({ reps: 0 }));
+                }
+
+                let totalRepsSum = 0;
+                let setsHTML = '';
+                savedLogs[ex.id].forEach((setData, setIdx) => {
+                    const activeReps = setData.reps || 0;
+                    totalRepsSum += activeReps;
+                    setsHTML += `
+                        <div class="flex items-center justify-between my-2 py-1 border-b border-slate-800">
+                            <span class="w-16 text-slate-400 font-bold system-font">Set ${setIdx + 1}</span>
+                            <div class="flex space-x-1.5">
+                                <button onclick="setReps('${ex.id}', ${setIdx}, 10)" class="px-2.5 py-1 rounded font-bold system-font transition ${activeReps === 10 ? 'bg-cyan-500 text-slate-950 shadow' : 'bg-slate-900 text-cyan-400 border border-cyan-800 hover:bg-cyan-950'}">10</button>
+                                <button onclick="setReps('${ex.id}', ${setIdx}, 15)" class="px-2.5 py-1 rounded font-bold system-font transition ${activeReps === 15 ? 'bg-cyan-500 text-slate-950 shadow' : 'bg-slate-900 text-cyan-400 border border-cyan-800 hover:bg-cyan-950'}">15</button>
+                                <button onclick="setReps('${ex.id}', ${setIdx}, 20)" class="px-2.5 py-1 rounded font-bold system-font transition ${activeReps === 20 ? 'bg-cyan-500 text-slate-950 shadow' : 'bg-slate-900 text-cyan-400 border border-cyan-800 hover:bg-cyan-950'}">20</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-bold text-white text-sm system-font">${ex.name}</h3>
+                                <p class="text-[11px] text-amber-400 font-semibold system-font">${ex.target}</p>
+                            </div>
+                            <span id="badge-status-${ex.id}" class="text-[10px] bg-slate-900 text-slate-400 border border-slate-700 px-2 py-0.5 rounded font-bold">STANDBY</span>
+                        </div>
+                        <div class="my-2 bg-slate-900/80 p-2 rounded border border-slate-800 flex justify-between items-center text-xs">
+                            <span class="text-cyan-400 font-semibold system-font">Total Volume Summary:</span>
+                            <span class="font-bold text-white system-font">${totalRepsSum} Reps in ${ex.defaultSets} Sets</span>
+                        </div>
+                        <div class="mt-2">${setsHTML}</div>
+                        <div class="flex space-x-2 mt-3 pt-2 border-t border-slate-800">
+                            <button onclick="startExerciseSession('${ex.id}')" id="btn-start-${ex.id}" class="flex-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black py-1.5 rounded uppercase text-xs system-font transition">
+                                <i class="fa-solid fa-play mr-1"></i> Start Exercise
+                            </button>
+                            <button onclick="endExerciseSession('${ex.id}')" id="btn-end-${ex.id}" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-black py-1.5 rounded uppercase text-xs system-font transition hidden">
+                                <i class="fa-solid fa-flag-checkered mr-1"></i> End Exercise
+                            </button>
+                            <button onclick="showInstruction('${ex.name}', '${ex.target}', '${ex.desc}', '${ex.videoUrl}')" class="bg-slate-900 border border-cyan-800 text-cyan-300 py-1.5 px-3 rounded uppercase font-bold text-xs system-font">
+                                Form
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        function clearPenaltyZone() {
-            isPenaltyActive = false;
-            localStorage.setItem('penalty_active', 'false');
-            document.getElementById('penalty-banner').classList.add('hidden');
-            document.getElementById('main-status-window').classList.remove('penalty-window');
-            document.getElementById('header-ticker-bg').className = 'bg-cyan-950/40 border-t border-b border-cyan-500/30 py-1 px-4 text-center';
-            document.getElementById('system-announcement').innerText = '[SYSTEM: PENALTY CLEARED. WELCOME BACK TO NORMAL OPERATIONS.]';
+        function setReps(exId, setIdx, repVal) {
+            const savedLogs = JSON.parse(localStorage.getItem('build_gain_set_logs') || '{}');
+            if (!savedLogs[exId]) return;
+
+            savedLogs[exId][setIdx].reps = repVal;
+            localStorage.setItem('build_gain_set_logs', JSON.stringify(savedLogs));
+            loadWorkoutDay();
             updateDashboardStatus();
         }
 
@@ -618,156 +663,18 @@
 
         function updateRankingBoard() {
             const history = JSON.parse(localStorage.getItem('build_gain_history') || '[]');
-            const totalQuests = history.length;
-            const score = 100 + (totalQuests * 150);
+            const totalExercises = history.length;
+            const score = 100 + (totalExercises * 100);
 
             let rankTier = 'E-RANK HUNTER';
-            if (totalQuests >= 15) rankTier = 'S-RANK MONARCH';
-            else if (totalQuests >= 10) rankTier = 'A-RANK HUNTER';
-            else if (totalQuests >= 5) rankTier = 'B-RANK HUNTER';
-            else if (totalQuests >= 2) rankTier = 'C-RANK HUNTER';
+            if (totalExercises >= 20) rankTier = 'S-RANK MONARCH';
+            else if (totalExercises >= 12) rankTier = 'A-RANK HUNTER';
+            else if (totalExercises >= 6) rankTier = 'B-RANK HUNTER';
+            else if (totalExercises >= 2) rankTier = 'C-RANK HUNTER';
 
             document.getElementById('rank-tier-display').innerText = rankTier;
-            document.getElementById('total-quests-cleared').innerText = `${totalQuests} Quests`;
+            document.getElementById('total-quests-cleared').innerText = `${totalExercises} Exercises`;
             document.getElementById('ranking-score').innerText = `${score} PTS`;
-        }
-
-        function calculateMetrics() {
-            const hunterName = document.getElementById('input-hunter-name').value || 'Tanzim Ahmed';
-            const target = document.getElementById('calc-target').value;
-            const gender = document.getElementById('calc-gender').value;
-            const age = parseFloat(document.getElementById('calc-age').value);
-            const weight = parseFloat(document.getElementById('calc-weight').value);
-            const height = parseFloat(document.getElementById('calc-height').value);
-
-            if (!age || !weight || !height) {
-                alert('Please enter valid numeric values.');
-                return;
-            }
-
-            const heightM = height / 100;
-            const bmi = weight / (heightM * heightM);
-            let bmr = (gender === 'male') ? (10 * weight) + (6.25 * height) - (5 * age) + 5 : (10 * weight) + (6.25 * height) - (5 * age) - 161;
-            let targetCalories = Math.round(target === 'bulk' ? bmr * 1.35 + 350 : target === 'cut' ? bmr * 1.2 - 300 : bmr * 1.35);
-            let targetProtein = Math.round(target === 'cut' ? weight * 2.0 : weight * 1.8);
-
-            const profileData = { hunterName, target, gender, age, weight, height, bmi: bmi.toFixed(1), bmr: Math.round(bmr), targetCalories, targetProtein };
-            localStorage.setItem('build_gain_profile', JSON.stringify(profileData));
-
-            updateProfileUI();
-            loadWorkoutDay();
-            loadDietPlan();
-            alert('SYSTEM TARGETS & HUNTER IDENTITY CALIBRATED.');
-        }
-
-        function loadProfile() {
-            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
-            if (saved) {
-                document.getElementById('input-hunter-name').value = saved.hunterName || 'Tanzim Ahmed';
-                document.getElementById('calc-target').value = saved.target || 'bulk';
-                document.getElementById('calc-gender').value = saved.gender || 'male';
-                document.getElementById('calc-age').value = saved.age || 26;
-                document.getElementById('calc-weight').value = saved.weight || 65;
-                document.getElementById('calc-height').value = saved.height || 170;
-            }
-            updateProfileUI();
-        }
-
-        function updateProfileUI() {
-            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
-            const hunterName = saved ? saved.hunterName : 'Tanzim Ahmed';
-            const target = saved ? saved.target : 'bulk';
-            const calories = saved ? saved.targetCalories : 2300;
-            const protein = saved ? saved.targetProtein : 110;
-            const bmi = saved ? saved.bmi : (65 / 2.89).toFixed(1);
-
-            const goalNames = { bulk: 'Lean Bulk', cut: 'Fat Loss Shred', recomp: 'Strength Recomp' };
-
-            document.getElementById('nav-player-name').innerText = hunterName;
-            document.getElementById('display-player-name').innerText = hunterName;
-            document.getElementById('res-goal-name').innerText = goalNames[target];
-            document.getElementById('res-bmi').innerText = `${bmi}`;
-            document.getElementById('res-target-cal').innerText = `${calories} kcal`;
-            document.getElementById('res-target-protein').innerText = `${protein} g`;
-
-            document.getElementById('dash-cal-display').innerText = `${calories}`;
-            document.getElementById('dash-protein-display').innerText = `${protein} g`;
-        }
-
-        function loadProgramWeek() {
-            const weekKey = document.getElementById('program-week-select').value;
-            const weekData = programMap[weekKey] || programMap[1];
-
-            document.getElementById('prog-week-title').innerText = weekData.title;
-            document.getElementById('prog-week-badge').innerText = weekData.badge;
-            document.getElementById('prog-week-desc').innerText = weekData.desc;
-            document.getElementById('prog-push-target').innerText = weekData.pushTarget;
-            document.getElementById('prog-row-target').innerText = weekData.rowTarget;
-            document.getElementById('prog-tempo-target').innerText = weekData.tempoTarget;
-            document.getElementById('prog-weight-target').innerText = weekData.weightTarget;
-        }
-
-        // WORKOUT SYSTEM WITH 3-LEVEL REPS BUTTONS (NO LOAD/WEIGHT)
-        function loadWorkoutDay() {
-            const saved = JSON.parse(localStorage.getItem('build_gain_profile') || 'null');
-            const targetKey = saved ? saved.target : 'bulk';
-            const dayKey = document.getElementById('workout-day-select').value;
-            const container = document.getElementById('workout-list');
-            container.innerHTML = '';
-
-            const currentRoutine = workoutDatabase[targetKey] || workoutDatabase.bulk;
-            const savedLogs = JSON.parse(localStorage.getItem('build_gain_set_logs') || '{}');
-            const dayExercises = currentRoutine[dayKey] || [];
-
-            dayExercises.forEach(ex => {
-                const card = document.createElement('div');
-                card.className = `system-window p-3.5 rounded-xl shadow-md flex flex-col justify-between text-xs`;
-                
-                if (!savedLogs[ex.id]) {
-                    savedLogs[ex.id] = Array.from({ length: ex.defaultSets }, () => ({ reps: null }));
-                }
-
-                let setsHTML = '';
-                savedLogs[ex.id].forEach((setData, setIdx) => {
-                    const activeReps = setData.reps;
-                    setsHTML += `
-                        <div class="flex items-center justify-between my-2 py-1 border-b border-slate-800">
-                            <span class="w-16 text-slate-400 font-bold system-font">Set ${setIdx + 1}</span>
-                            <div class="flex space-x-1.5">
-                                <button onclick="setReps('${ex.id}', ${setIdx}, 10)" class="px-2.5 py-1 rounded font-bold system-font transition ${activeReps === 10 ? 'bg-cyan-500 text-slate-950 shadow' : 'bg-slate-900 text-cyan-400 border border-cyan-800 hover:bg-cyan-950'}">10 Reps</button>
-                                <button onclick="setReps('${ex.id}', ${setIdx}, 15)" class="px-2.5 py-1 rounded font-bold system-font transition ${activeReps === 15 ? 'bg-cyan-500 text-slate-950 shadow' : 'bg-slate-900 text-cyan-400 border border-cyan-800 hover:bg-cyan-950'}">15 Reps</button>
-                                <button onclick="setReps('${ex.id}', ${setIdx}, 20)" class="px-2.5 py-1 rounded font-bold system-font transition ${activeReps === 20 ? 'bg-cyan-500 text-slate-950 shadow' : 'bg-slate-900 text-cyan-400 border border-cyan-800 hover:bg-cyan-950'}">20 Reps</button>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                card.innerHTML = `
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h3 class="font-bold text-white text-sm system-font">${ex.name}</h3>
-                                <p class="text-[11px] text-amber-400 font-semibold system-font">${ex.target}</p>
-                            </div>
-                            <button onclick="showInstruction('${ex.name}', '${ex.target}', '${ex.desc}', '${ex.videoUrl}')" class="text-[10px] bg-cyan-950 border border-cyan-800 hover:bg-cyan-900 text-cyan-300 py-1 px-2 rounded transition uppercase font-bold system-font">
-                                <i class="fa-solid fa-play mr-1 text-cyan-400"></i> Form
-                            </button>
-                        </div>
-                        <div class="mt-2">${setsHTML}</div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function setReps(exId, setIdx, repVal) {
-            const savedLogs = JSON.parse(localStorage.getItem('build_gain_set_logs') || '{}');
-            if (!savedLogs[exId]) return;
-
-            savedLogs[exId][setIdx].reps = repVal;
-            localStorage.setItem('build_gain_set_logs', JSON.stringify(savedLogs));
-            loadWorkoutDay();
-            updateDashboardStatus();
         }
 
         function renderDashboardAdherenceChart() {
@@ -780,7 +687,7 @@
                     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                     datasets: [{
                         label: 'Consistency (%)',
-                        data: [80, 90, 100, 85, 95, 100, 95],
+                        data: [85, 90, 100, 90, 95, 100, 95],
                         borderColor: '#00e5ff',
                         backgroundColor: 'rgba(0, 229, 255, 0.15)',
                         fill: true,
@@ -805,15 +712,15 @@
             if (volumeChartInstance) volumeChartInstance.destroy();
 
             const history = JSON.parse(localStorage.getItem('build_gain_history') || '[]');
-            let volumeData = history.map((h, i) => (i + 1) * 400);
-            if (volumeData.length === 0) volumeData = [400, 600, 850, 1100];
+            let volumeData = history.map((h, i) => (i + 1) * 50);
+            if (volumeData.length === 0) volumeData = [50, 120, 200, 310];
 
             volumeChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: history.map(h => h.date) || ['Day 1', 'Day 2', 'Day 3', 'Day 4'],
+                    labels: history.map(h => h.date) || ['Raid 1', 'Raid 2', 'Raid 3', 'Raid 4'],
                     datasets: [{
-                        label: 'Completed Reps Volume',
+                        label: 'Cumulative Reps',
                         data: volumeData,
                         backgroundColor: '#00e5ff',
                         borderRadius: 4
@@ -898,69 +805,32 @@
 
         function updateDashboardStatus() {
             const history = JSON.parse(localStorage.getItem('build_gain_history') || '[]');
-            const hasClearedDungeon = history.length > 0;
-
             const statusEl = document.getElementById('dash-workout-status');
-            const expBar = document.getElementById('exp-bar');
-            const expText = document.getElementById('exp-text');
-            const rankBadge = document.getElementById('player-rank-badge');
-            const navRank = document.getElementById('nav-player-rank');
-            const penaltyStatus = document.getElementById('penalty-status');
             const weeklyProgress = document.getElementById('dash-weekly-progress');
 
-            const completionRate = Math.min(100, history.length * 25);
+            const completionRate = Math.min(100, history.length * 20);
             weeklyProgress.innerText = `${completionRate}%`;
 
-            if (isPenaltyActive) {
-                statusEl.innerText = 'PENALTY ACTIVE';
-                statusEl.className = 'text-xl font-bold text-red-500 system-font';
-                penaltyStatus.innerText = 'PENALTY ZONE ENFORCED';
-                penaltyStatus.className = 'text-sm font-bold text-red-400 system-font mt-1';
-                return;
-            }
-
-            if (hasClearedDungeon) {
-                statusEl.innerText = 'QUEST CLEARED';
+            if (history.length > 0) {
+                statusEl.innerText = 'RAID ACTIVE / CLEARED';
                 statusEl.className = 'text-xl font-bold text-cyan-400 glow-blue system-font';
-                expBar.style.width = `${Math.min(100, history.length * 25)}%`;
-                expText.innerText = `${Math.min(100, history.length * 25)}%`;
-                rankBadge.innerText = history.length >= 5 ? '[ A-RANK HUNTER ]' : '[ C-RANK HUNTER ]';
-                navRank.innerText = history.length >= 5 ? 'A-RANK' : 'C-RANK';
-                penaltyStatus.innerText = 'CLEAR (NO PENALTY)';
-                penaltyStatus.className = 'text-sm font-bold text-emerald-400 system-font mt-1';
             } else {
-                statusEl.innerText = 'INCOMPLETE';
+                statusEl.innerText = 'PENDING';
                 statusEl.className = 'text-xl font-bold text-amber-400 system-font';
-                expBar.style.width = '10%';
-                expText.innerText = '10%';
-                rankBadge.innerText = '[ E-RANK HUNTER ]';
-                navRank.innerText = 'E-RANK';
-                penaltyStatus.innerText = 'WARNING (PENDING RAID)';
-                penaltyStatus.className = 'text-sm font-bold text-amber-400 system-font mt-1';
-
-                // Automatically trigger penalty zone demo if uncompleted
-                if (localStorage.getItem('penalty_triggered_demo') !== 'true') {
-                    // Uncomment below to test penalty automatically or keep available via state
-                }
             }
         }
 
         function resetAllData() {
-            if (confirm("System Reset warning: Are you sure you want to clear all hunter stats and rep logs?")) {
+            if (confirm("System Reset warning: Are you sure you want to clear all hunter parameters and perform a complete system reset?")) {
                 localStorage.clear();
-                loadProfile();
-                loadWorkoutDay();
-                loadDietPlan();
-                loadProgramWeek();
-                resetTimer();
-                updateDashboardStatus();
+                location.reload();
             }
         }
 
-        loadProfile();
+        // Run system initialization check on load
+        checkInitialSetup();
         loadWorkoutDay();
         loadDietPlan();
-        loadProgramWeek();
         updateDashboardStatus();
     </script>
 </body>
